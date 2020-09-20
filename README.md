@@ -76,6 +76,10 @@ Run `npm test` for the module tests.
 - `npm run lint` to run eslint
 - `npm run stress-test` runs for ~10 seconds
 
+### Dependencies
+
+This module is solely dependent on `node/crypto`.
+
 ## License
 
 [MIT © Daniel Almasi](https://github.com/almasen/n-digit-token/blob/master/LICENSE)
