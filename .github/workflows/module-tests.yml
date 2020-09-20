@@ -52,4 +52,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: coverage
-          path: /coverage
+          path: ./coverage
