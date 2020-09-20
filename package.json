@@ -1,7 +1,7 @@
 {
     "name": "n-digit-token",
     "version": "1.0.0",
-    "description": "Cryptographically secure pseudo random token of n digits",
+    "description": "Cryptographically secure pseudo-random token of n digits",
     "homepage": "https://github.com/almasen/n-digit-token#readme",
     "repository": {
         "type": "git",
@@ -15,17 +15,15 @@
     "license": "MIT",
     "main": "index.js",
     "scripts": {
-        "test": "jest -i /test",
+        "test": "jest -i /test/index",
+        "stress-test": "jest -i /test/stress",
         "lint": "eslint ./ --fix"
     },
-    "dependencies": {
-    },
+    "dependencies": {},
     "devDependencies": {
-        "del-cli": "^3.0.1",
         "eslint": "^7.9.0",
         "eslint-config-google": "^0.14.0",
-        "jest": "^26.4.2",
-        "jsdoc": "^3.6.6"
+        "jest": "^26.4.2"
     },
     "jest": {
         "collectCoverage": true,
@@ -33,9 +31,6 @@
             "json",
             "html",
             "json-summary"
-        ],
-        "setupFilesAfterEnv": [
-            "./test/setup"
         ]
     }
 }
