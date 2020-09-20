@@ -78,7 +78,7 @@ Run `npm test` for the module tests.
 
 ### Dependencies
 
-This module is solely dependent on `node/crypto`.
+This package is solely dependent on the built in `nodeJS/Crypto` module.
 
 ## License
 
