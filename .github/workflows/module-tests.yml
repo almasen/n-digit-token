@@ -21,11 +21,11 @@ jobs:
           node-version: '12.x'
 
       - name: Install npm packages
-        working-directory: ./server
+        working-directory: ./
         run: npm ci
 
       - name: Run ESLint
-        working-directory: ./server
+        working-directory: ./
         run: npx eslint ./
 
   test:
@@ -41,15 +41,15 @@ jobs:
           node-version: '12.x'
 
       - name: npm install
-        working-directory: ./server
+        working-directory: ./
         run: npm ci
 
       - name: npm test
         run: npm test
-        working-directory: ./server
+        working-directory: ./
 
       - name: Create test coverage artifact
         uses: actions/upload-artifact@v1
         with:
           name: coverage
-          path: server/coverage
+          path: /coverage
