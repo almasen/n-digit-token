@@ -1,0 +1,55 @@
+name: Test
+
+# Trigger on push
+on:
+  push:
+    branches:
+      - master # master (rerun tests after merging a PR)
+
+jobs:
+  # build and run tests
+  build:
+    runs-on: ubuntu-latest
+    # setup node, build, and run tests
+    steps:
+      - name: Checkout GitHub repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install npm packages
+        working-directory: ./server
+        run: npm ci
+
+      - name: Run ESLint
+        working-directory: ./server
+        run: npx eslint ./
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout Github repository
+        uses: actions/checkout@v2
+
+      - name: set up Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: npm install
+        working-directory: ./server
+        run: npm ci
+
+      - name: npm test
+        run: npm test
+        working-directory: ./server
+
+      - name: Create test coverage artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: coverage
+          path: server/coverage
