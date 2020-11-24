@@ -57,6 +57,8 @@ const anEightDigitToken = gen(8);
 // => '25280789'
 ```
 
+Maximum supported token length is 20.
+
 ## Options
 
 ### options.avoidModuloBias
