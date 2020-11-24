@@ -1,10 +1,10 @@
 const { generateSecureToken } = require("../index.js");
 
-test("token generation algorithm returns a string", async () => {
+test("token generation algorithm returns a string", () => {
     expect(typeof generateSecureToken(2)).toStrictEqual("string");
 });
 
-test("token generation algorithm throws appropriate error on invalid parameters", async () => {
+test("token generation algorithm throws appropriate error on invalid parameters", () => {
     expect(() => {
         generateSecureToken(2.45)
     }).toThrow(new Error("Invalid input: must be called with a positive integer."));
@@ -22,7 +22,7 @@ test("token generation algorithm throws appropriate error on invalid parameters"
     }).toThrow(new Error("Invalid input: the largest supported length is 20."));
 });
 
-test("token generation algorithm always returns secure random token of expected length", async () => {
+test("token generation algorithm always returns secure random token of expected length", () => {
     for (let length = 1; length <= 8; length++) {
         for (let i = 0; i < 100; i++) {
             const token = generateSecureToken(length, { avoidModuloBias: false });
@@ -31,7 +31,7 @@ test("token generation algorithm always returns secure random token of expected 
     }
 });
 
-test("token generation algorithm with avoidModuloBias turned on always returns secure random token of expected length", async () => {
+test("token generation algorithm with avoidModuloBias turned on always returns secure random token of expected length", () => {
     for (let length = 1; length <= 8; length++) {
         for (let i = 0; i < 100; i++) {
             const token = generateSecureToken(length, { avoidModuloBias: true });
@@ -40,7 +40,7 @@ test("token generation algorithm with avoidModuloBias turned on always returns s
     }
 });
 
-test("token generation algorithm always returns a token consisting of digits only", async () => {
+test("token generation algorithm always returns a token consisting of digits only", () => {
     for (let length = 1; length <= 8; length++) {
         for (let i = 0; i < 100; i++) {
             const token = generateSecureToken(length, { avoidModuloBias: false });
@@ -49,7 +49,7 @@ test("token generation algorithm always returns a token consisting of digits onl
     }
 });
 
-test("token generation algorithm with avoidModuloBias turned on always returns a token consisting of digits only", async () => {
+test("token generation algorithm with avoidModuloBias turned on always returns a token consisting of digits only", () => {
     for (let length = 1; length <= 8; length++) {
         for (let i = 0; i < 100; i++) {
             const token = generateSecureToken(length, { avoidModuloBias: true });
