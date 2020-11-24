@@ -9,7 +9,7 @@ test("token generation algorithm always returns secure random token of expected 
     }
 });
 
-test("token generation algorithm always returns secure random token of expected length", async () => {
+test("token generation algorithm with avoidModuloBias turned on always returns secure random token of expected length", async () => {
     for (let length = 1; length <= 20; length++) {
         for (let i = 0; i < 100; i++) {
             const token = gen(length, { avoidModuloBias: true });
@@ -18,7 +18,7 @@ test("token generation algorithm always returns secure random token of expected 
     }
 });
 
-test("token generation algorithm always returns secure random token of expected length", async () => {
+test("token generation algorithm always returns a token consisting of digits only", async () => {
     for (let length = 1; length <= 20; length++) {
         for (let i = 0; i < 100; i++) {
             const token = gen(length, { avoidModuloBias: false });
@@ -27,7 +27,7 @@ test("token generation algorithm always returns secure random token of expected 
     }
 });
 
-test("token generation algorithm always returns secure random token of expected length", async () => {
+test("token generation algorithm with avoidModuloBias turned on always returns a token consisting of digits only", async () => {
     for (let length = 1; length <= 20; length++) {
         for (let i = 0; i < 100; i++) {
             const token = gen(length, { avoidModuloBias: true });
