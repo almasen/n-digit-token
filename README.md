@@ -21,6 +21,21 @@ I was looking for a simple module that generates an n-digit token that could be 
 
 If your application needs cryptographically strong pseudo random values, this uses `crypto.randomBytes()` which provides cryptographically strong pseudo-random data.
 
+### Modulo bias
+
+The default configuration of `n-digit-token` does __not__ avoid [modulo bias](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Modulo_bias) in favour of performance.
+
+If your application requires an algorithm that avoids modulo bias, you can set this in the [options](#options).
+
+### Comparisons
+
+| Algorithm                            	| Cryptographically strong? 	| Avoids modulo bias? 	|
+|--------------------------------------	|---------------------------	|---------------------	|
+| average RNG                          	| No                        	| No                  	|
+| crypto.randomInt                     	| No                        	| Yes                 	|
+| n-digit-token (default config)       	| Yes                       	| No                  	|
+| n-digit-token (avoidModuloBias=true) 	| Yes                       	| Yes                 	|
+
 ## Detailed usage
 
 `gen(n)` where `n` is the desired length/number of digits.
@@ -38,34 +53,22 @@ const anEightDigitToken = gen(8);
 // => '25280789'
 ```
 
-__Alias__
-
-`gen()` is an alias of `generateSecureToken()`.
-
-``` javascript
-const { gen, generateSecureToken } = require('n-digit-token');
-
-const lazyToken = gen(6);
-// => '973351'
-
-const meLikeLongFunctionNames = generateSecureToken(6);
-// => '811358'
-```
-
-__Also__
-
-You can do this too but I'm not sure why you would want to..
-
-``` javascript
-const tokenGenerator = require('n-digit-token');
-
-const uuhh = tokenGenerator.gen(6);
-// => '040821'
-```
-
 ## Options
 
-TODO: coming soon
+### options.avoidModuloBias
+
+This setting defaults to `false` in favour of performance.
+
+Set this `true` if you need an algorithm that avoids modulo bias.
+
+``` javascript
+const token = gen(6, { avoidModuloBias: true });
+// => '194127'
+```
+
+Please note that setting this option may considerably impact performance for tokens of larger sizes (10+).
+
+_more options coming soon_
 
 ## Test
 
@@ -74,11 +77,11 @@ Run `npm test` for the module tests.
 ### Scripts
 
 - `npm run lint` to run eslint
-- `npm run stress-test` runs for ~10 seconds
+- `npm run stress-test` runs for ~2 minutes
 
 ### Dependencies
 
-This package is solely dependent on the built in `nodeJS/Crypto` module.
+This package is solely dependent on the built-in `nodeJS/Crypto` module.
 
 ## License
 
