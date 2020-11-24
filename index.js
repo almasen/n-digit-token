@@ -96,7 +96,7 @@ const generateWithoutModulo = (length) => {
 /**
  * Generate a cryptographically secure pseudo random token string of given length.
  * By default the algorithm does not avoid modulo bias favouring performance.
- * @param {Number} length positive integer
+ * @param {Number} length length between 1-20 (inclusive)
  * @param {Object} [options]
  * @param {Boolean} [options.avoidModuloBias=false] set true to avoid modulo bias
  * @return {String} token
