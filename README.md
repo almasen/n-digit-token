@@ -87,6 +87,10 @@ Run `npm test` for the module tests.
 
 This package is solely dependent on the built-in `nodeJS/Crypto` module.
 
+#### Browserify
+
+You may have success running this module with [crypto-browserify](https://www.npmjs.com/package/crypto-browserify), but note that this is intended for server-side use.
+
 ## License
 
 [MIT © Daniel Almasi](https://github.com/almasen/n-digit-token/blob/master/LICENSE)
