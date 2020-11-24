@@ -2,16 +2,21 @@
     "name": "n-digit-token",
     "version": "1.1.0",
     "description": "Cryptographically secure pseudo-random token of n digits",
-    "keywords": ["token", "cryptographically-strong", "token-generator", "2fa", "auth-token", "crypto", "cryptography"],
+    "keywords": [
+        "token",
+        "cryptographically-strong",
+        "token-generator",
+        "2fa",
+        "auth-token",
+        "crypto",
+        "cryptography"
+    ],
     "homepage": "https://github.com/almasen/n-digit-token#readme",
     "repository": {
         "type": "git",
         "url": "https://github.com/almasen/n-digit-token"
     },
     "funding": "https://github.com/almasen/n-digit-token?sponsor=1",
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com/@almasen"
-    },
     "author": {
         "name": "Daniel Almasi",
         "email": "almd@pm.me",
