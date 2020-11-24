@@ -17,11 +17,11 @@ This tiny module generates an n-digit cryptographically strong pseudo-random tok
 
 ### Background
 
-A cryptographically secure pseudorandom number generator (CSPRNG).
+A cryptographically secure pseudorandom number generator ([CSPRNG](https://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator)).
 
 I was looking for a simple module that generates an n-digit token that could be used for 2FA among others and was surprised that I couldn't find one that uses a cryptographically secure number generator.
 
-If your application needs cryptographically strong pseudo random values, this uses `crypto.randomBytes()` which [provides cryptographically strong pseudo-random data](https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback).
+If your application needs cryptographically strong pseudo random values, this uses `crypto.randomBytes()` which provides [cryptographically strong](https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback) pseudo-random data.
 
 ### Modulo bias
 
@@ -37,6 +37,8 @@ If your application requires an algorithm that avoids modulo bias, you can set t
 | crypto.randomInt                     	| No                        	| Yes                 	|
 | n-digit-token (default config)       	| Yes                       	| No                  	|
 | n-digit-token (avoidModuloBias=true) 	| Yes                       	| Yes                 	|
+
+_As of 24 October 2020_
 
 ## Detailed usage
 
