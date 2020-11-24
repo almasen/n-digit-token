@@ -1,10 +1,37 @@
 const { gen } = require("../index.js");
 
 test("token generation algorithm always returns secure random token of expected length", async () => {
-    for (let length = 1; length <= 16; length++) {
-        for (let i = 0; i < 10000; i++) {
-            const token = gen(length);
+    for (let length = 1; length <= 20; length++) {
+        for (let i = 0; i < 100; i++) {
+            const token = gen(length, { avoidModuloBias: false });
             expect(token.length).toStrictEqual(length);
+        }
+    }
+});
+
+test("token generation algorithm always returns secure random token of expected length", async () => {
+    for (let length = 1; length <= 20; length++) {
+        for (let i = 0; i < 100; i++) {
+            const token = gen(length, { avoidModuloBias: true });
+            expect(token.length).toStrictEqual(length);
+        }
+    }
+});
+
+test("token generation algorithm always returns secure random token of expected length", async () => {
+    for (let length = 1; length <= 20; length++) {
+        for (let i = 0; i < 100; i++) {
+            const token = gen(length, { avoidModuloBias: false });
+            expect(/^\d+$/.test(token)).toStrictEqual(true);
+        }
+    }
+});
+
+test("token generation algorithm always returns secure random token of expected length", async () => {
+    for (let length = 1; length <= 20; length++) {
+        for (let i = 0; i < 100; i++) {
+            const token = gen(length, { avoidModuloBias: true });
+            expect(/^\d+$/.test(token)).toStrictEqual(true);
         }
     }
 });
