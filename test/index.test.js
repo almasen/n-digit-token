@@ -20,6 +20,10 @@ test("token generation algorithm throws appropriate error on invalid parameters"
     expect(() => {
         generateSecureToken(23)
     }).toThrow(new Error("Invalid input: the largest supported length is 20."));
+
+    expect(() => {
+        generateSecureToken(2, { avoidModuloBias: "invalid" })
+    }).toThrow(new Error("Invalid options: avoidModuloBias is a boolean."));
 });
 
 test("token generation algorithm always returns secure random token of expected length", () => {
