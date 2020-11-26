@@ -38,19 +38,21 @@ If your application requires an algorithm that avoids modulo bias, you can set t
 | n-digit-token (default config)       	| Yes                       	| No                  	|
 | n-digit-token (avoidModuloBias=true) 	| Yes                       	| Yes                 	|
 
-_As of 24 October 2020_
+_As of November 2020_
 
 ## Detailed usage
 
 `gen(n)` where `n` is the desired length/number of digits.
 
+`gen()` is a shorthand for `generateSecureToken()`. Use whichever you prefer.
+
 ``` javascript
-const { gen } = require('n-digit-token');
+const { gen, generateSecureToken } = require('n-digit-token');
 
 const token = gen(6);
 // => '681485'
 
-const anotherAuthToken = gen(6);
+const anotherAuthToken = generateSecureToken(6);
 // => '090188'
 
 const anEightDigitToken = gen(8);
