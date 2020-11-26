@@ -4,6 +4,8 @@ Generate a cryptographically secure pseudo-random token of N digits.
 
 ## Quick start
 
+`gen(n)` where `n` is the desired length/number of digits.
+
 ``` javascript
 const { gen } = require('n-digit-token');
 
@@ -42,9 +44,7 @@ _As of November 2020_
 
 ## Detailed usage
 
-`gen(n)` where `n` is the desired length/number of digits.
-
-`gen()` is a shorthand for `generateSecureToken()`. Use whichever you prefer.
+`gen()` is just a shorthand for `generateSecureToken()`, use whichever you prefer.
 
 ``` javascript
 const { gen, generateSecureToken } = require('n-digit-token');
