@@ -57,9 +57,9 @@ const validateOptions = (options) => {
     if (typeof options.avoidModuloBias !== "boolean") {
         throw new Error("Invalid options: avoidModuloBias is a boolean.");
     }
-    if (options.type === "num" && !options.wrapper) {
-        throw new Error("Invalid options: Number output is only supported when a wrapper is specified.");
-    }
+    // if (options.type === "num" && !options.wrapper) {
+    //     throw new Error("Invalid options: Number output is only supported when a wrapper is specified.");
+    // }
 };
 
 /**
@@ -123,7 +123,7 @@ const generateWithoutModulo = (length) => {
  * Generate a cryptographically secure pseudo random token string of given length.
  * By default the algorithm does not avoid modulo bias favouring performance.
  * @param {Number} length length between 1-20 (inclusive)
- * @param {Object} [options]
+ * @param {Object} [options] options object (optional)
  * @param {Boolean} [options.avoidModuloBias=false] set true to avoid modulo bias
  * @return {String} token
  */
