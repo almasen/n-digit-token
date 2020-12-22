@@ -40,7 +40,7 @@ If your application requires an algorithm that avoids modulo bias, you can set t
 | n-digit-token (default config)       	| Yes                       	| No                  	|
 | n-digit-token (avoidModuloBias=true) 	| Yes                       	| Yes                 	|
 
-_As of November 2020_
+_As of December 2020_
 
 ## Detailed usage
 
@@ -76,11 +76,11 @@ const token = gen(6, { avoidModuloBias: true });
 
 Please note that setting this option may considerably impact performance for tokens of larger sizes (10+).
 
-_more options coming soon_
+_skip-padding & return type options coming soon_
 
 ## Test
 
-Run `npm test` for the module tests.
+Install the devDependencies and run `npm test` for the module tests.
 
 ### Scripts
 
