@@ -35,12 +35,12 @@ If your application requires an algorithm that avoids modulo bias, you can set t
 
 | Algorithm                            	| Cryptographically strong? 	| Avoids modulo bias? 	|
 |--------------------------------------	|---------------------------	|---------------------	|
-| average RNG                          	| No                        	| No                  	|
-| crypto.randomInt                     	| No                        	| Yes                 	|
-| n-digit-token (default config)       	| Yes                       	| No                  	|
-| n-digit-token (avoidModuloBias=true) 	| Yes                       	| Yes                 	|
+| average RNG                          	| :x:                        	| :x:                  	|
+| crypto.randomInt                     	| :x:                        	| :heavy_check_mark:   	|
+| n-digit-token (default config)       	| :heavy_check_mark:           	| :x:                  	|
+| n-digit-token (avoidModuloBias=true) 	| :heavy_check_mark:           	| :heavy_check_mark:  	|
 
-_As of December 2020_
+_As of January 2021_
 
 ## Detailed usage
 
