@@ -1,0 +1,140 @@
+{
+    "1": {
+        "totalBytes": 1,
+        "lengthCombination": [
+            1
+        ]
+    },
+    "2": {
+        "totalBytes": 1,
+        "lengthCombination": [
+            1
+        ]
+    },
+    "3": {
+        "totalBytes": 2,
+        "lengthCombination": [
+            1,
+            1
+        ]
+    },
+    "4": {
+        "totalBytes": 2,
+        "lengthCombination": [
+            1,
+            1
+        ]
+    },
+    "5": {
+        "totalBytes": 3,
+        "lengthCombination": [
+            2,
+            1
+        ]
+    },
+    "6": {
+        "totalBytes": 3,
+        "lengthCombination": [
+            2,
+            1
+        ]
+    },
+    "7": {
+        "totalBytes": 3,
+        "lengthCombination": [
+            2,
+            1
+        ]
+    },
+    "8": {
+        "totalBytes": 4,
+        "lengthCombination": [
+            2,
+            2
+        ]
+    },
+    "9": {
+        "totalBytes": 4,
+        "lengthCombination": [
+            2,
+            2
+        ]
+    },
+    "10": {
+        "totalBytes": 5,
+        "lengthCombination": [
+            5
+        ]
+    },
+    "11": {
+        "totalBytes": 5,
+        "lengthCombination": [
+            5
+        ]
+    },
+    "12": {
+        "totalBytes": 5,
+        "lengthCombination": [
+            5
+        ]
+    },
+    "13": {
+        "totalBytes": 6,
+        "lengthCombination": [
+            5,
+            1
+        ]
+    },
+    "14": {
+        "totalBytes": 6,
+        "lengthCombination": [
+            5,
+            1
+        ]
+    },
+    "15": {
+        "totalBytes": 7,
+        "lengthCombination": [
+            5,
+            1,
+            1
+        ]
+    },
+    "16": {
+        "totalBytes": 7,
+        "lengthCombination": [
+            5,
+            1,
+            1
+        ]
+    },
+    "17": {
+        "totalBytes": 8,
+        "lengthCombination": [
+            5,
+            3
+        ]
+    },
+    "18": {
+        "totalBytes": 8,
+        "lengthCombination": [
+            5,
+            3
+        ]
+    },
+    "19": {
+        "totalBytes": 8,
+        "lengthCombination": [
+            5,
+            3
+        ]
+    },
+    "20": {
+        "totalBytes": 9,
+        "lengthCombination": [
+            5,
+            3,
+            1
+        ]
+    }
+}
