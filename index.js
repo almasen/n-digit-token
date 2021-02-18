@@ -176,7 +176,7 @@ const generateWithoutModulo = (length, options) => {
     const max = calculateMax(length);
 
     while (!secureInt || secureInt > max) {
-        secureBytes = generateSecureBytes(Math.round(length / 2));
+        secureBytes = generateSecureBytes(lengthMap[length].totalBytes);
         secureInt = parseInt(secureBytes, 16);
     }
     return padTokenIfNecessary(length, secureInt.toString());
