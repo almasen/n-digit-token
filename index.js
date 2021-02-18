@@ -63,12 +63,12 @@ const validateOptions = (options) => {
 };
 
 /**
- * Generate secure random bytes appropriate for given length.
+ * Generate secure random bytes of given length.
  * @param {Number} length
  * @return {String} random bytes
  */
 const generateSecureBytes = (length) => {
-    return crypto.randomBytes(lengthMap[length]).toString("hex");
+    return crypto.randomBytes(length).toString("hex");
 };
 
 /**
@@ -97,7 +97,7 @@ const padTokenIfNecessary = (length, token) => {
  * @return {String} token
  */
 const generateWithModulo = (length) => {
-    const secureBytes = generateSecureBytes(length);
+    const secureBytes = generateSecureBytes(lengthMap[length]);
     const secureInt = parseInt(secureBytes, 16) % calculateMax(length);
     return padTokenIfNecessary(length, secureInt.toString());
 };
@@ -113,7 +113,7 @@ const generateWithoutModulo = (length) => {
     const max = calculateMax(length);
 
     while (!secureInt || secureInt > max) {
-        secureBytes = crypto.randomBytes(Math.round(length / 2)).toString("hex");
+        secureBytes = generateSecureBytes(Math.round(length / 2));
         secureInt = parseInt(secureBytes, 16);
     }
     return padTokenIfNecessary(length, secureInt.toString());
