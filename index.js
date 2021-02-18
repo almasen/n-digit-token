@@ -79,7 +79,7 @@ const padTokenIfNecessary = (length, token) => {
  */
 const generateWithModulo = (length, options) => {
     const secureBytes = generateSecureBytes(lengthMap[length].totalBytes);
-    const secureInt = parseInt(secureBytes, 16) % calculateMax(length);
+    const secureInt = parseInt(secureBytes, 16) % (calculateMax(length) + 1);
     return padTokenIfNecessary(length, secureInt.toString());
 };
 
