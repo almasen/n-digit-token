@@ -54,6 +54,10 @@ jobs:
           name: coverage
           path: ./coverage
 
+      - name: Run extended tests
+        run: npm run extended-test
+        working-directory: ./
+
   publish:
     needs: test
     runs-on: ubuntu-latest
