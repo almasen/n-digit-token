@@ -1,7 +1,14 @@
-const { generateSecureToken } = require("../index.js");
+const { gen, generateSecureToken } = require("../index.js");
 
 test("token generation algorithm returns a string", () => {
     expect(typeof generateSecureToken(2)).toStrictEqual("string");
+});
+
+test("gen shorthand calls generateSecureToken function as expected", () => {
+    const genResult = gen(6);
+    const generateSecureTokenResult = generateSecureToken(6);
+    expect(typeof genResult).toStrictEqual(typeof generateSecureTokenResult);
+    expect(genResult.length).toStrictEqual(generateSecureTokenResult.length);
 });
 
 test("token generation algorithm throws appropriate error on invalid parameters", () => {
