@@ -85,7 +85,7 @@ Install the devDependencies and run `npm test` for the module tests.
 ### Scripts
 
 - `npm run lint` to run eslint
-- `npm run stress-test` runs for ~2 minutes
+- `npm run extended-test` runs 1000 iterations of each test scenario
 
 ### Dependencies
 

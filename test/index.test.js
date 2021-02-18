@@ -47,6 +47,20 @@ test("token generation algorithm throws appropriate error on invalid parameters"
     }).toThrow(new Error("Invalid options: avoidModuloBias must be a boolean."));
 });
 
+test("token generation algorithm always returns a token consisting of digits only", () => {
+    for (let length = 1; length <= 20; length++) {
+        const token = generateSecureToken(length, {avoidModuloBias: false});
+        expect(/^\d+$/.test(token)).toStrictEqual(true);
+    }
+});
+
+test("token generation algorithm with avoidModuloBias turned on always returns a token consisting of digits only", () => {
+    for (let length = 1; length <= 20; length++) {
+        const token = generateSecureToken(length, {avoidModuloBias: true});
+        expect(/^\d+$/.test(token)).toStrictEqual(true);
+    }
+});
+
 test("token generation algorithm always returns secure random token of expected length", () => {
     for (let length = 1; length <= 20; length++) {
         for (let i = 0; i < 100; i++) {
@@ -61,24 +75,6 @@ test("token generation algorithm with avoidModuloBias turned on always returns s
         for (let i = 0; i < 100; i++) {
             const token = generateSecureToken(length, {avoidModuloBias: true});
             expect(token.length).toStrictEqual(length);
-        }
-    }
-});
-
-test("token generation algorithm always returns a token consisting of digits only", () => {
-    for (let length = 1; length <= 20; length++) {
-        for (let i = 0; i < 100; i++) {
-            const token = generateSecureToken(length, {avoidModuloBias: false});
-            expect(/^\d+$/.test(token)).toStrictEqual(true);
-        }
-    }
-});
-
-test("token generation algorithm with avoidModuloBias turned on always returns a token consisting of digits only", () => {
-    for (let length = 1; length <= 20; length++) {
-        for (let i = 0; i < 100; i++) {
-            const token = generateSecureToken(length, {avoidModuloBias: true});
-            expect(/^\d+$/.test(token)).toStrictEqual(true);
         }
     }
 });
