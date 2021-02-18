@@ -35,7 +35,7 @@ const validateOptions = (options) => {
         return;
     }
     if (typeof options.avoidModuloBias !== "boolean") {
-        throw new Error("Invalid options: avoidModuloBias is a boolean.");
+        throw new Error("Invalid options: avoidModuloBias must be a boolean.");
     }
     // if (options.type === "num" && !options.wrapper) {
     //     throw new Error("Invalid options: Number output is only supported when a wrapper is specified.");

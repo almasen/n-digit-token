@@ -11,14 +11,18 @@ test("sum of byte length combinations in lengthMap matches required bytes", () =
 });
 
 test("token generation algorithm returns a string", () => {
-    expect(typeof generateSecureToken(2)).toStrictEqual("string");
+    for (let length = 1; length <= 20; length++) {
+        expect(typeof generateSecureToken(length)).toStrictEqual("string");
+    }
 });
 
 test("gen shorthand calls generateSecureToken function as expected", () => {
-    const genResult = gen(6);
-    const generateSecureTokenResult = generateSecureToken(6);
-    expect(typeof genResult).toStrictEqual(typeof generateSecureTokenResult);
-    expect(genResult.length).toStrictEqual(generateSecureTokenResult.length);
+    for (let length = 1; length <= 20; length++) {
+        const genResult = gen(length);
+        const generateSecureTokenResult = generateSecureToken(length);
+        expect(typeof genResult).toStrictEqual(typeof generateSecureTokenResult);
+        expect(genResult.length).toStrictEqual(generateSecureTokenResult.length);
+    }
 });
 
 test("token generation algorithm throws appropriate error on invalid parameters", () => {
@@ -40,11 +44,11 @@ test("token generation algorithm throws appropriate error on invalid parameters"
 
     expect(() => {
         generateSecureToken(2, {avoidModuloBias: "invalid"});
-    }).toThrow(new Error("Invalid options: avoidModuloBias is a boolean."));
+    }).toThrow(new Error("Invalid options: avoidModuloBias must be a boolean."));
 });
 
 test("token generation algorithm always returns secure random token of expected length", () => {
-    for (let length = 1; length <= 8; length++) {
+    for (let length = 1; length <= 20; length++) {
         for (let i = 0; i < 100; i++) {
             const token = generateSecureToken(length, {avoidModuloBias: false});
             expect(token.length).toStrictEqual(length);
@@ -53,7 +57,7 @@ test("token generation algorithm always returns secure random token of expected 
 });
 
 test("token generation algorithm with avoidModuloBias turned on always returns secure random token of expected length", () => {
-    for (let length = 1; length <= 8; length++) {
+    for (let length = 1; length <= 20; length++) {
         for (let i = 0; i < 100; i++) {
             const token = generateSecureToken(length, {avoidModuloBias: true});
             expect(token.length).toStrictEqual(length);
@@ -62,7 +66,7 @@ test("token generation algorithm with avoidModuloBias turned on always returns s
 });
 
 test("token generation algorithm always returns a token consisting of digits only", () => {
-    for (let length = 1; length <= 8; length++) {
+    for (let length = 1; length <= 20; length++) {
         for (let i = 0; i < 100; i++) {
             const token = generateSecureToken(length, {avoidModuloBias: false});
             expect(/^\d+$/.test(token)).toStrictEqual(true);
@@ -71,7 +75,7 @@ test("token generation algorithm always returns a token consisting of digits onl
 });
 
 test("token generation algorithm with avoidModuloBias turned on always returns a token consisting of digits only", () => {
-    for (let length = 1; length <= 8; length++) {
+    for (let length = 1; length <= 20; length++) {
         for (let i = 0; i < 100; i++) {
             const token = generateSecureToken(length, {avoidModuloBias: true});
             expect(/^\d+$/.test(token)).toStrictEqual(true);
