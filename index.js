@@ -18,8 +18,11 @@ const validateLength = (input) => {
     }
 };
 
+/* eslint-disable max-len */
+
 /**
  * Validates input options.
+ * @param {number} length
  * @param {object} options
  * @throws {error} if called with invalid options
  */
@@ -28,15 +31,14 @@ const validateOptions = (length, options) => {
         return;
     }
     if ("avoidModuloBias" in options) {
-        console.warn("Warning - deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.")
+        console.warn("Warning - deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.");
     }
     if ("returnType" in options) {
         validateReturnType(length, options);
     }
     if ("customMemory" in options) {
-        validateCustomMemory(options);
+        validateCustomMemory(length, options);
     }
-
 };
 
 const validateReturnType = (length, options) => {
@@ -56,17 +58,22 @@ const validateReturnType = (length, options) => {
             break;
 
         default:
-            throw new Error(`Invalid return type: Please choose one of string | number | bigint.`)
+            throw new Error(`Invalid return type: Please choose one of string | number | bigint.`);
             break;
     }
+};
 
-}
-
-const validateCustomMemory = (options) => {
-   if (!Number.isInteger(options.customMemory) || options.customMemory <= 0) {
+const validateCustomMemory = (length, options) => {
+    if (!Number.isInteger(options.customMemory) || options.customMemory <= 0) {
         throw new Error("Invalid options: customMemory must be a positive integer.");
     }
-}
+    if (options.customMemory < (DEFAULT_BYTE_SIZE + length)) {
+        console.warn('Warning - scarce memory: Allocated memory is less than ideal for the algorithm, this *may* result in decreased performance.');
+        return options.customMemory;
+    }
+};
+
+/* eslint-enable max-len */
 
 /**
  * Generate secure random bytes of given length.
@@ -95,15 +102,8 @@ const calculateMax = (byteCount, length) => {
  * @return {number} required number of bytes
  */
 const calculateByteSize = (length, options) => {
-    const preferredSize = DEFAULT_BYTE_SIZE + length;
-    if (options && "customMemory" in options) {
-        if (options.customMemory < preferredSize) {
-            console.warn('Warning - scarce memory: Allocated memory is less than ideal for the algorithm, this *may* result in decreased performance.');
-            return options.customMemory;
-        }
-    }
-    return preferredSize;
-}
+    return options && "customMemory" in options ? options.customMemory : DEFAULT_BYTE_SIZE + length;
+};
 
 /**
  * Left-pad token with zeros if necessary.
@@ -144,9 +144,10 @@ const generateWithoutModuloBias = (length, options) => {
  * @param {bigint} secureBigIntToken token
  * @param {number} length
  * @param {object} options
+ * @return {string|number|bigint} formatted token
  */
 const handleOptions = (secureBigIntToken, length, options) => {
-    if(!options) {
+    if (!options) {
         return padTokenIfNecessary(length, secureBigIntToken.toString(10));
     }
 
@@ -170,7 +171,7 @@ const handleOptions = (secureBigIntToken, length, options) => {
             return options.skipPadding ? tokenString : padTokenIfNecessary(length, tokenString);
             break;
     }
-}
+};
 
 /**
  * Generate a cryptographically secure pseudo random token of given number of digits.

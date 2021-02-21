@@ -12,7 +12,7 @@ module.exports = {
         'SharedArrayBuffer': 'readonly',
     },
     'parserOptions': {
-        'ecmaVersion': 2018,
+        'ecmaVersion': 2020,
     },
     "rules": {
         "linebreak-style": 0,
@@ -22,5 +22,5 @@ module.exports = {
         "arrow-parens": 0,
         "max-len": ["error", {"code": 140}],
     },
-    "ignorePatterns": [""],
+    "ignorePatterns": ["/conf"],
 };

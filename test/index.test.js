@@ -3,7 +3,7 @@ const {gen, generateSecureToken} = require("../index.js");
 jest.spyOn(console, 'warn').mockImplementation();
 
 afterEach(() => {
-  jest.clearAllMocks();
+    jest.clearAllMocks();
 });
 
 test("simple token generation works", () => {
@@ -17,6 +17,8 @@ test("simple token generation shorthand works", () => {
     expect(token.length).toStrictEqual(6);
     expect(typeof token).toStrictEqual("string");
 });
+
+/* eslint-disable max-len */
 
 test("token generation algorithm throws appropriate error on invalid length", () => {
     expect(() => {
@@ -71,16 +73,15 @@ test("token generation algorithm warns about scarce memory but executes without 
     expect(console.warn.mock.calls.length).toBe(1);
     expect(console.warn.mock.calls[0][0]).toBe("Warning - scarce memory: Allocated memory is less than ideal for the algorithm, this *may* result in decreased performance.");
     expect(token.length).toStrictEqual(6);
-
 });
 
 test("token generation algorithm warns about deprecated options but executes without error", () => {
     expect(console.warn.mock.calls.length).toBe(0);
-    generateSecureToken(6, {avoidModuloBias: true})
+    generateSecureToken(6, {avoidModuloBias: true});
     expect(console.warn.mock.calls.length).toBe(1);
-    generateSecureToken(6, {avoidModuloBias: false})
+    generateSecureToken(6, {avoidModuloBias: false});
     expect(console.warn.mock.calls.length).toBe(2);
-    generateSecureToken(6, {avoidModuloBias: "invalid"})
+    generateSecureToken(6, {avoidModuloBias: "invalid"});
     expect(console.warn.mock.calls.length).toBe(3);
     expect(console.warn.mock.calls[0][0]).toBe("Warning - deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.");
     expect(console.warn.mock.calls[1][0]).toBe("Warning - deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.");
@@ -94,7 +95,7 @@ test("gen shorthand calls generateSecureToken function as expected", () => {
         expect(typeof genResult).toStrictEqual(typeof generateSecureTokenResult);
         expect(genResult.length).toStrictEqual(generateSecureTokenResult.length);
     }
-})
+});
 
 test("token generation algorithm returns a string by default", () => {
     for (let length = 1; length <= 32; length++) {
@@ -124,9 +125,9 @@ test("by default token generation algorithm returns values within expected distr
     for (let i = 0; i < total; i++) {
         const token = generateSecureToken(1);
         if (map.has(token)) {
-            map.set(token, map.get(token) + 1)
+            map.set(token, map.get(token) + 1);
         } else {
-            map.set(token, 1)
+            map.set(token, 1);
         }
     }
     for (let i = 1; i < 10; i++) {
@@ -142,9 +143,9 @@ test("token generation algorithm provided less than ideal memory still returns v
     for (let i = 0; i < total; i++) {
         const token = generateSecureToken(1, {customMemory: 1});
         if (map.has(token)) {
-            map.set(token, map.get(token) + 1)
+            map.set(token, map.get(token) + 1);
         } else {
-            map.set(token, 1)
+            map.set(token, 1);
         }
     }
     for (let i = 1; i < 10; i++) {
