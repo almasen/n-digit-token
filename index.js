@@ -28,7 +28,7 @@ const validateOptions = (length, options) => {
         return;
     }
     if ("avoidModuloBias" in options) {
-        console.warn("Deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.")
+        console.warn("Warning - deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.")
     }
     if ("returnType" in options) {
         validateReturnType(length, options);
@@ -80,12 +80,20 @@ const calculateMax = (byteCount, length) => {
 };
 
 /**
- * Calculate required number of bytes.
+ * Calculate total size of byte stream to be generated.
  * @param {number} length
+ * @param {object} options
  * @return {number} required number of bytes
  */
-const calculateByteCount = (length) => {
-    return DEFAULT_BYTE_LENGTH + length;
+const calculateByteCount = (length, options) => {
+    const preferredSize = DEFAULT_BYTE_LENGTH + length;
+    if (options && "maxMemory" in options) {
+        if (options.maxMemory < preferredSize) {
+            console.warn(`Warning - scarce memory: Max memory is less than ideal for the algorithm, this *may* result in decreased performance. Provide at least ${Math.round(preferredSize * 1.2)} bytes of memory to avoid this.`);
+            return maxMemory;
+        }
+    }
+    return preferredSize;
 }
 
 /**
@@ -106,13 +114,14 @@ const padTokenIfNecessary = (length, token) => {
  * @return {bigint} token
  */
 const generateWithoutModuloBias = (length, options) => {
-    const byteCount = calculateByteCount(length);
+    const byteCount = calculateByteCount(length, options);
     const max = calculateMax(byteCount, length);
 
     let done = false;
-    let secureInt = 0n;
+    let secureInt;
 
     while (!done) {
+        secureInt = 0n; // minimise memory usage
         const secureBytes = generateSecureBytes(byteCount);
         secureInt = BigInt('0x' + secureBytes);
         done = secureInt <= max;
@@ -164,6 +173,7 @@ const generateToken = (length, options) => {
  * @param {object} [options] options object (optional)
  * @param {string} [options.returnType='string'] desired return type (default=string)
  * @param {boolean} [options.skipPadding=false] set to true to avoid leading zeros
+ * @param {number} [options.maxMemory] max memory in bytes WARNING: Advanced option, use with caution!!
  * @return {string|number|bigint} token
  */
 const generateSecureToken = (length, options) => {
