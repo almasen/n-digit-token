@@ -4,7 +4,7 @@
 
 const {randomBytes} = require("crypto");
 
-const DEFAULT_BYTE_LENGTH = 1024;
+const DEFAULT_BYTE_LENGTH = 64;
 
 /**
  * Validates input length.
