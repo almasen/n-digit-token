@@ -3,7 +3,7 @@ const {gen} = require("../index.js");
 jest.spyOn(console, 'warn').mockImplementation();
 
 afterEach(() => {
-  jest.clearAllMocks();
+    jest.clearAllMocks();
 });
 
 test("token generation algorithm always returns secure random token of digits of expected length", () => {
@@ -22,9 +22,9 @@ test("by default token generation algorithm returns values within expected distr
     for (let i = 0; i < total; i++) {
         const token = gen(1);
         if (map.has(token)) {
-            map.set(token, map.get(token) + 1)
+            map.set(token, map.get(token) + 1);
         } else {
-            map.set(token, 1)
+            map.set(token, 1);
         }
     }
     for (let i = 1; i < 10; i++) {
@@ -40,9 +40,9 @@ test("token generation algorithm provided less than ideal memory still returns v
     for (let i = 0; i < total; i++) {
         const token = gen(1, {customMemory: 1});
         if (map.has(token)) {
-            map.set(token, map.get(token) + 1)
+            map.set(token, map.get(token) + 1);
         } else {
-            map.set(token, 1)
+            map.set(token, 1);
         }
     }
     for (let i = 1; i < 10; i++) {
