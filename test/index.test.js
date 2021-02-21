@@ -48,9 +48,9 @@ test("token generation algorithm warns about deprecated options but executes wit
     expect(console.warn.mock.calls.length).toBe(2);
     generateSecureToken(6, {avoidModuloBias: "invalid"})
     expect(console.warn.mock.calls.length).toBe(3);
-    expect(console.warn.mock.calls[0][0]).toBe("Deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.");
-    expect(console.warn.mock.calls[1][0]).toBe("Deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.");
-    expect(console.warn.mock.calls[2][0]).toBe("Deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.");
+    expect(console.warn.mock.calls[0][0]).toBe("Warning - deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.");
+    expect(console.warn.mock.calls[1][0]).toBe("Warning - deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.");
+    expect(console.warn.mock.calls[2][0]).toBe("Warning - deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.");
 });
 
 test("gen shorthand calls generateSecureToken function as expected", () => {
