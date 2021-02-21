@@ -106,3 +106,20 @@ test("token generation algorithm always returns a token consisting of digits onl
     }
 });
 
+test("token generation algorithm returns values within expected distribution", () => {
+    const total = 100000;
+    const map = new Map();
+    for (let i = 0; i < total; i++) {
+        const token = generateSecureToken(1, {maxMemory: 1});
+        if (map.has(token)) {
+            map.set(token, map.get(token) + 1)
+        } else {
+            map.set(token, 1)
+        }
+    }
+    for (let i = 1; i < 10; i++) {
+        const count = map.get(`${i}`);
+        expect(count > Math.floor(total * 0.07)).toStrictEqual(true);
+        expect(count < Math.ceil(total * 0.13)).toStrictEqual(true);
+    }
+});
