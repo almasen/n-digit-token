@@ -40,6 +40,28 @@ test("token generation algorithm rejects integer sizes greater than 15 digits.",
     }).toThrow(new Error("Invalid options: number (integer) return type is too small for length of 15+ digits. Please consider using BigInt or String as return type."));
 });
 
+test("token generation algorithm validates max memory option correctly.", () => {
+    expect(() => {
+        generateSecureToken(16, {maxMemory: "8"});
+    }).toThrow(new Error("Invalid options: maxMemory must be a positive integer."));
+
+    expect(() => {
+        generateSecureToken(16, {maxMemory: 0});
+    }).toThrow(new Error("Invalid options: maxMemory must be a positive integer."));
+
+    const token = generateSecureToken(16, {maxMemory: 2048});
+    expect(token.length).toStrictEqual(16);
+});
+
+test("token generation algorithm warns about scarce memory but executes without error", () => {
+    expect(console.warn.mock.calls.length).toBe(0);
+    const token = generateSecureToken(6, {maxMemory: 64});
+    expect(console.warn.mock.calls.length).toBe(1);
+    expect(console.warn.mock.calls[0][0]).toBe("Warning - scarce memory: Max memory is less than ideal for the algorithm, this *may* result in decreased performance.");
+    expect(token.length).toStrictEqual(6);
+
+});
+
 test("token generation algorithm warns about deprecated options but executes without error", () => {
     expect(console.warn.mock.calls.length).toBe(0);
     generateSecureToken(6, {avoidModuloBias: true})
