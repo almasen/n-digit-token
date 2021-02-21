@@ -4,7 +4,7 @@
 
 const {randomBytes} = require("crypto");
 
-const DEFAULT_BYTE_LENGTH = 64;
+const DEFAULT_BYTE_SIZE = 64;
 
 /**
  * Validates input length.
@@ -33,8 +33,8 @@ const validateOptions = (length, options) => {
     if ("returnType" in options) {
         validateReturnType(length, options);
     }
-    if ("maxMemory" in options) {
-        validateMaxMemory(options);
+    if ("customMemory" in options) {
+        validateCustomMemory(options);
     }
 
 };
@@ -62,9 +62,9 @@ const validateReturnType = (length, options) => {
 
 }
 
-const validateMaxMemory = (options) => {
-   if (!Number.isInteger(options.maxMemory) || options.maxMemory <= 0) {
-        throw new Error("Invalid options: maxMemory must be a positive integer.");
+const validateCustomMemory = (options) => {
+   if (!Number.isInteger(options.customMemory) || options.customMemory <= 0) {
+        throw new Error("Invalid options: customMemory must be a positive integer.");
     }
 }
 
@@ -94,12 +94,12 @@ const calculateMax = (byteCount, length) => {
  * @param {object} options
  * @return {number} required number of bytes
  */
-const calculateByteCount = (length, options) => {
-    const preferredSize = DEFAULT_BYTE_LENGTH + length;
-    if (options && "maxMemory" in options) {
-        if (options.maxMemory < preferredSize) {
-            console.warn('Warning - scarce memory: Max memory is less than ideal for the algorithm, this *may* result in decreased performance.');
-            return options.maxMemory;
+const calculateByteSize = (length, options) => {
+    const preferredSize = DEFAULT_BYTE_SIZE + length;
+    if (options && "customMemory" in options) {
+        if (options.customMemory < preferredSize) {
+            console.warn('Warning - scarce memory: Allocated memory is less than ideal for the algorithm, this *may* result in decreased performance.');
+            return options.customMemory;
         }
     }
     return preferredSize;
@@ -123,15 +123,15 @@ const padTokenIfNecessary = (length, token) => {
  * @return {bigint} token
  */
 const generateWithoutModuloBias = (length, options) => {
-    const byteCount = calculateByteCount(length, options);
-    const max = calculateMax(byteCount, length);
+    const byteSize = calculateByteSize(length, options);
+    const max = calculateMax(byteSize, length);
 
     let done = false;
     let secureInt;
 
     while (!done) {
         secureInt = 0n; // minimise memory usage
-        const secureBytes = generateSecureBytes(byteCount);
+        const secureBytes = generateSecureBytes(byteSize);
         secureInt = BigInt('0x' + secureBytes);
         done = secureInt <= max;
     }
@@ -182,7 +182,7 @@ const generateToken = (length, options) => {
  * @param {object} [options] options object (optional)
  * @param {string} [options.returnType='string'] desired return type (default=string)
  * @param {boolean} [options.skipPadding=false] set to true to avoid leading zeros
- * @param {number} [options.maxMemory] max memory in bytes WARNING: Advanced option, use with caution!!
+ * @param {number} [options.customMemory] memory used in bytes WARNING: Advanced option, use with caution!!
  * @return {string|number|bigint} token
  */
 const generateSecureToken = (length, options) => {

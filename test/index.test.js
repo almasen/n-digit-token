@@ -42,22 +42,22 @@ test("token generation algorithm rejects integer sizes greater than 15 digits.",
 
 test("token generation algorithm validates max memory option correctly.", () => {
     expect(() => {
-        generateSecureToken(16, {maxMemory: "8"});
-    }).toThrow(new Error("Invalid options: maxMemory must be a positive integer."));
+        generateSecureToken(16, {customMemory: "8"});
+    }).toThrow(new Error("Invalid options: customMemory must be a positive integer."));
 
     expect(() => {
-        generateSecureToken(16, {maxMemory: 0});
-    }).toThrow(new Error("Invalid options: maxMemory must be a positive integer."));
+        generateSecureToken(16, {customMemory: 0});
+    }).toThrow(new Error("Invalid options: customMemory must be a positive integer."));
 
-    const token = generateSecureToken(16, {maxMemory: 2048});
+    const token = generateSecureToken(16, {customMemory: 2048});
     expect(token.length).toStrictEqual(16);
 });
 
 test("token generation algorithm warns about scarce memory but executes without error", () => {
     expect(console.warn.mock.calls.length).toBe(0);
-    const token = generateSecureToken(6, {maxMemory: 64});
+    const token = generateSecureToken(6, {customMemory: 64});
     expect(console.warn.mock.calls.length).toBe(1);
-    expect(console.warn.mock.calls[0][0]).toBe("Warning - scarce memory: Max memory is less than ideal for the algorithm, this *may* result in decreased performance.");
+    expect(console.warn.mock.calls[0][0]).toBe("Warning - scarce memory: Allocated memory is less than ideal for the algorithm, this *may* result in decreased performance.");
     expect(token.length).toStrictEqual(6);
 
 });
@@ -106,11 +106,29 @@ test("token generation algorithm always returns a token consisting of digits onl
     }
 });
 
-test("token generation algorithm returns values within expected distribution", () => {
-    const total = 100000;
+test("by default token generation algorithm returns values within expected distribution", () => {
+    const total = 10000;
     const map = new Map();
     for (let i = 0; i < total; i++) {
-        const token = generateSecureToken(1, {maxMemory: 1});
+        const token = generateSecureToken(1);
+        if (map.has(token)) {
+            map.set(token, map.get(token) + 1)
+        } else {
+            map.set(token, 1)
+        }
+    }
+    for (let i = 1; i < 10; i++) {
+        const count = map.get(`${i}`);
+        expect(count > Math.floor(total * 0.07)).toStrictEqual(true);
+        expect(count < Math.ceil(total * 0.13)).toStrictEqual(true);
+    }
+});
+
+test("token generation algorithm provided less than ideal memory still returns values within expected distribution", () => {
+    const total = 10000;
+    const map = new Map();
+    for (let i = 0; i < total; i++) {
+        const token = generateSecureToken(1, {customMemory: 1});
         if (map.has(token)) {
             map.set(token, map.get(token) + 1)
         } else {
