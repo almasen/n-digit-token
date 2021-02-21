@@ -33,6 +33,9 @@ const validateOptions = (length, options) => {
     if ("returnType" in options) {
         validateReturnType(length, options);
     }
+    if ("maxMemory" in options) {
+        validateMaxMemory(options);
+    }
 
 };
 
@@ -57,6 +60,12 @@ const validateReturnType = (length, options) => {
             break;
     }
 
+}
+
+const validateMaxMemory = (options) => {
+   if (!Number.isInteger(options.maxMemory) || options.maxMemory <= 0) {
+        throw new Error("Invalid options: maxMemory must be a positive integer.");
+    }
 }
 
 /**
@@ -89,8 +98,8 @@ const calculateByteCount = (length, options) => {
     const preferredSize = DEFAULT_BYTE_LENGTH + length;
     if (options && "maxMemory" in options) {
         if (options.maxMemory < preferredSize) {
-            console.warn(`Warning - scarce memory: Max memory is less than ideal for the algorithm, this *may* result in decreased performance. Provide at least ${Math.round(preferredSize * 1.2)} bytes of memory to avoid this.`);
-            return maxMemory;
+            console.warn('Warning - scarce memory: Max memory is less than ideal for the algorithm, this *may* result in decreased performance.');
+            return options.maxMemory;
         }
     }
     return preferredSize;
