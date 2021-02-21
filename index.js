@@ -139,9 +139,13 @@ const generateWithoutModuloBias = (length, options) => {
     return (secureInt % BigInt(10n ** BigInt(length)));
 };
 
-const generateToken = (length, options) => {
-    const secureBigIntToken = generateWithoutModuloBias(length, options);
-
+/**
+ * Handle token return type and format based on user options.
+ * @param {bigint} secureBigIntToken token
+ * @param {number} length
+ * @param {object} options
+ */
+const handleOptions = (secureBigIntToken, length, options) => {
     if(!options) {
         return padTokenIfNecessary(length, secureBigIntToken.toString(10));
     }
@@ -158,9 +162,6 @@ const generateToken = (length, options) => {
 
         case "number":
         case "integer":
-            if(Number.MAX_SAFE_INTEGER < secureBigIntToken) {
-                throw new Error("Return value too large for an integer. Consider using BigInt or String as return type."); // move this to input testing.
-            }
             return parseInt(secureBigIntToken, 10);
             break;
 
@@ -188,7 +189,8 @@ const generateToken = (length, options) => {
 const generateSecureToken = (length, options) => {
     validateLength(length);
     validateOptions(length, options);
-    return generateToken(length, options);
+    const secureBigIntToken = generateWithoutModuloBias(length, options);
+    return handleOptions(secureBigIntToken, length, options);
 };
 
 module.exports = {
