@@ -40,7 +40,7 @@ test("token generation algorithm rejects integer sizes greater than 15 digits.",
     }).toThrow(new Error("Invalid options: number (integer) return type is too small for length of 15+ digits. Please consider using BigInt or String as return type."));
 });
 
-test("token generation algorithm validates max memory option correctly.", () => {
+test("token generation algorithm validates custom memory option correctly.", () => {
     expect(() => {
         generateSecureToken(16, {customMemory: "8"});
     }).toThrow(new Error("Invalid options: customMemory must be a positive integer."));
