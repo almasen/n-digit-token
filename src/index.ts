@@ -40,22 +40,13 @@ const validateOptions = (length: number, options?: Options) => {
         /* tslint:disable-next-line:no-console */
         console.warn("Warning - deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.");
     }
-    if (options.skipPadding) {
-        validateSkipPadding(length, options);
-    }
-    if (options.returnType) {
-        validateReturnType(length, options);
-    }
-    if (options.customMemory === 0) {
-        throw new Error("Invalid options: customMemory must be a positive integer.");
-    }
-    if (options.customMemory) {
-        validateCustomMemory(length, options);
-    }
+    validateSkipPadding(length, options);
+    validateReturnType(length, options);
+    validateCustomMemory(length, options);
 };
 
 const validateSkipPadding = (length: number, options?: Options) => {
-    if (!options) {
+    if (!options || !options.skipPadding) {
         return;
     }
     if (typeof options.skipPadding !== "boolean") {
@@ -67,7 +58,7 @@ const validateSkipPadding = (length: number, options?: Options) => {
 };
 
 const validateReturnType = (length: number, options?: Options) => {
-    if (!options) {
+    if (!options || !options.returnType) {
         return;
     }
     if (typeof options.returnType !== "string") {
@@ -95,8 +86,12 @@ const validateReturnType = (length: number, options?: Options) => {
 };
 
 const validateCustomMemory = (length: number, options?: Options) => {
-    if (!options || !options.customMemory) {
+    if (!options || options.customMemory === undefined) {
         return;
+    }
+    // check order has to follow options > 0 > undef/null
+    if (options.customMemory === 0) {
+        throw new Error("Invalid options: customMemory must be a positive integer.");
     }
     if (!Number.isInteger(options.customMemory) || options.customMemory <= 0) {
         throw new Error("Invalid options: customMemory must be a positive integer.");
