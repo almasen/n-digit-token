@@ -105,6 +105,6 @@ test("token generation algorithm validates custom memory option correctly", () =
         generateSecureToken(16, {customMemory: 0});
     }).toThrow(new Error("Invalid options: customMemory must be a positive integer."));
 
-    const token = generateSecureToken(16, {customMemory: 32});
+    const token = generateSecureToken(16, {customMemory: 96});
     expect(token.length).toStrictEqual(16);
 });
