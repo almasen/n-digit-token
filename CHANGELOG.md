@@ -1,6 +1,6 @@
 ## Change log
 
-## 2.0.0 - dev
+## 2.0.0 - beta
 
 **Complete TypeScript rewrite**
 
