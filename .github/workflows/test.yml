@@ -24,9 +24,9 @@ jobs:
         working-directory: ./
         run: npm ci
 
-      - name: Run ESLint
-        working-directory: ./
-        run: npx eslint ./
+      # - name: Run ESLint
+      #   working-directory: ./
+      #   run: npx eslint ./
 
   test:
     needs: build
