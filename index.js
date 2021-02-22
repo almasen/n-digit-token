@@ -33,6 +33,9 @@ const validateOptions = (length, options) => {
     if ("avoidModuloBias" in options) {
         console.warn("Warning - deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.");
     }
+    if ("skipPadding" in options) {
+        validateSkipPadding(length, options);
+    }
     if ("returnType" in options) {
         validateReturnType(length, options);
     }
@@ -41,7 +44,19 @@ const validateOptions = (length, options) => {
     }
 };
 
+const validateSkipPadding = (length, options) => {
+    if (typeof options.skipPadding !== "boolean") {
+        throw new Error("Invalid options: skipPadding must be a boolean.");
+    }
+    if (options.skipPadding && length === 1) {
+        throw new Error("Invalid options: skipPadding can only be used with token length >1. How would you skip padding for a single digit token?");
+    }
+};
+
 const validateReturnType = (length, options) => {
+    if (typeof options.returnType !== "string") {
+        throw new Error("Invalid options: returnType must be specified in a string. For example 'number' or 'string'.");
+    }
     const returnType = options.returnType.toLowerCase();
     switch (returnType) {
         case "number":
@@ -49,6 +64,7 @@ const validateReturnType = (length, options) => {
             if (length > 15) {
                 throw new Error("Invalid options: number (integer) return type is too small for length of 15+ digits. Please consider using BigInt or String as return type.");
             }
+        case "bigint":
             if ("skipPadding" in options && !options.skipPadding) {
                 throw new Error("Invalid options: skipPadding must be enabled with non-string return types. Please consult the documentation for further information.");
             }
@@ -59,7 +75,6 @@ const validateReturnType = (length, options) => {
 
         default:
             throw new Error(`Invalid return type: Please choose one of string | number | bigint.`);
-            break;
     }
 };
 
@@ -69,7 +84,9 @@ const validateCustomMemory = (length, options) => {
     }
     if (options.customMemory < (DEFAULT_BYTE_SIZE + length)) {
         console.warn('Warning - scarce memory: Allocated memory is less than ideal for the algorithm, this *may* result in decreased performance.');
-        return options.customMemory;
+    }
+    if (options.customMemory > (DEFAULT_BYTE_SIZE + length) * 2) {
+        console.warn('Warning - overcompensated memory: Allocated memory is more than ideal for the algorithm, this *may* result in decreased performance.');
     }
 };
 
@@ -130,7 +147,7 @@ const generateWithoutModuloBias = (length, options) => {
     let secureInt;
 
     while (!done) {
-        secureInt = 0n; // minimise memory usage
+        secureInt = 0n; // minimize memory usage
         const secureBytes = generateSecureBytes(byteSize);
         secureInt = BigInt('0x' + secureBytes);
         done = secureInt <= max;
@@ -159,17 +176,14 @@ const handleOptions = (secureBigIntToken, length, options) => {
     switch (options.returnType.toLowerCase()) {
         case "bigint":
             return secureBigIntToken;
-            break;
 
         case "number":
         case "integer":
             return parseInt(secureBigIntToken, 10);
-            break;
 
         default:
             const tokenString = secureBigIntToken.toString(10);
             return options.skipPadding ? tokenString : padTokenIfNecessary(length, tokenString);
-            break;
     }
 };
 

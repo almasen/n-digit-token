@@ -54,7 +54,66 @@ test("token generation algorithm rejects integer sizes greater than 15 digits.",
     }).toThrow(new Error("Invalid options: number (integer) return type is too small for length of 15+ digits. Please consider using BigInt or String as return type."));
 });
 
-test("token generation algorithm validates custom memory option correctly.", () => {
+test("token generation accepts bigint sizes greater than 15 digits.", () => {
+    const token = generateSecureToken(16, {returnType: "bigint"});
+    expect(typeof token).toStrictEqual("bigint");
+});
+
+test("token generation algorithm verifies that returnType is a string if used.", () => {
+    generateSecureToken(6);
+    generateSecureToken(6, {returnType: "bigint"});
+    expect(() => {
+        generateSecureToken(6, {returnType: 2n});
+    }).toThrow(new Error("Invalid options: returnType must be specified in a string. For example 'number' or 'string'."));
+    expect(() => {
+        generateSecureToken(6, {returnType: 0});
+    }).toThrow(new Error("Invalid options: returnType must be specified in a string. For example 'number' or 'string'."));
+    expect(() => {
+        generateSecureToken(6, {returnType: false});
+    }).toThrow(new Error("Invalid options: returnType must be specified in a string. For example 'number' or 'string'."));
+});
+
+test("token generation algorithm verifies that skipPadding is a boolean if used.", () => {
+    generateSecureToken(6);
+    generateSecureToken(6, {skipPadding: false});
+    expect(() => {
+        generateSecureToken(6, {skipPadding: "false"});
+    }).toThrow(new Error("Invalid options: skipPadding must be a boolean."));
+    expect(() => {
+        generateSecureToken(6, {skipPadding: 0});
+    }).toThrow(new Error("Invalid options: skipPadding must be a boolean."));
+});
+
+test("token generation algorithm throws an appropriate error on unknown return types", () => {
+    expect(() => {
+        generateSecureToken(6, {returnType: "unknown"});
+    }).toThrow(new Error("Invalid return type: Please choose one of string | number | bigint."));
+});
+
+test("setting skipPadding to true is only accepted for token lengths >1", () => {
+    expect(() => {
+        generateSecureToken(1, {skipPadding: true});
+    }).toThrow(new Error("Invalid options: skipPadding can only be used with token length >1. How would you skip padding for a single digit token?"));
+});
+
+test("token generation algorithm rejects skipPadding=false in combination with a numerical return type.", () => {
+    const token = generateSecureToken(6, {returnType: "number", skipPadding: true});
+    expect(typeof token).toStrictEqual("number");
+
+    expect(() => {
+        generateSecureToken(6, {returnType: "number", skipPadding: false});
+    }).toThrow(new Error("Invalid options: skipPadding must be enabled with non-string return types. Please consult the documentation for further information."));
+
+    expect(() => {
+        generateSecureToken(6, {returnType: "integer", skipPadding: false});
+    }).toThrow(new Error("Invalid options: skipPadding must be enabled with non-string return types. Please consult the documentation for further information."));
+
+    expect(() => {
+        generateSecureToken(6, {returnType: "bigint", skipPadding: false});
+    }).toThrow(new Error("Invalid options: skipPadding must be enabled with non-string return types. Please consult the documentation for further information."));
+});
+
+test("token generation algorithm validates custom memory option correctly", () => {
     expect(() => {
         generateSecureToken(16, {customMemory: "8"});
     }).toThrow(new Error("Invalid options: customMemory must be a positive integer."));
@@ -63,7 +122,7 @@ test("token generation algorithm validates custom memory option correctly.", () 
         generateSecureToken(16, {customMemory: 0});
     }).toThrow(new Error("Invalid options: customMemory must be a positive integer."));
 
-    const token = generateSecureToken(16, {customMemory: 2048});
+    const token = generateSecureToken(16, {customMemory: 32});
     expect(token.length).toStrictEqual(16);
 });
 
@@ -72,6 +131,14 @@ test("token generation algorithm warns about scarce memory but executes without 
     const token = generateSecureToken(6, {customMemory: 64});
     expect(console.warn.mock.calls.length).toBe(1);
     expect(console.warn.mock.calls[0][0]).toBe("Warning - scarce memory: Allocated memory is less than ideal for the algorithm, this *may* result in decreased performance.");
+    expect(token.length).toStrictEqual(6);
+});
+
+test("token generation algorithm warns about too much memory but executes without error", () => {
+    expect(console.warn.mock.calls.length).toBe(0);
+    const token = generateSecureToken(6, {customMemory: 1024});
+    expect(console.warn.mock.calls.length).toBe(1);
+    expect(console.warn.mock.calls[0][0]).toBe("Warning - overcompensated memory: Allocated memory is more than ideal for the algorithm, this *may* result in decreased performance.");
     expect(token.length).toStrictEqual(6);
 });
 
@@ -95,6 +162,95 @@ test("gen shorthand calls generateSecureToken function as expected", () => {
         expect(typeof genResult).toStrictEqual(typeof generateSecureTokenResult);
         expect(genResult.length).toStrictEqual(generateSecureTokenResult.length);
     }
+});
+
+test("setting number as return type returns a number as expected", () => {
+    const token = generateSecureToken(6, {returnType: "number"});
+    const token2 = generateSecureToken(6, {returnType: "number", skipPadding: true});
+    expect(typeof token).toStrictEqual("number");
+    expect(typeof token2).toStrictEqual("number");
+});
+
+test("setting integer as return type returns a number as expected", () => {
+    const token = generateSecureToken(6, {returnType: "integer"});
+    const token2 = generateSecureToken(6, {returnType: "integer", skipPadding: true});
+    expect(typeof token).toStrictEqual("number");
+    expect(typeof token2).toStrictEqual("number");
+});
+
+test("setting bigint as return type returns a bigint as expected", () => {
+    const token = generateSecureToken(6, {returnType: "bigint"});
+    const token2 = generateSecureToken(6, {returnType: "bigint", skipPadding: true});
+    expect(typeof token).toStrictEqual("bigint");
+    expect(typeof token2).toStrictEqual("bigint");
+});
+
+test("setting string as return type returns a string as expected", () => {
+    const token0 = generateSecureToken(6);
+    const token1 = generateSecureToken(6, {returnType: "string"});
+    const token2 = generateSecureToken(6, {returnType: "string", skipPadding: true});
+    const token3 = generateSecureToken(6, {returnType: "string", skipPadding: false});
+    expect(typeof token0).toStrictEqual("string");
+    expect(typeof token1).toStrictEqual("string");
+    expect(typeof token2).toStrictEqual("string");
+    expect(typeof token3).toStrictEqual("string");
+});
+
+test("setting skipPadding to true may result in varied string token lengths if length is set to >1", () => {
+    const desiredTokenLength = 6;
+    let smallerTokenFound = false;
+    while (!smallerTokenFound) {
+        const token = gen(desiredTokenLength, {skipPadding: true});
+        smallerTokenFound = token.length < desiredTokenLength;
+    }
+});
+
+test("setting skipPadding to true may result in varied number token lengths if length is set to >1", () => {
+    const desiredTokenLength = 6;
+    let smallerTokenFound = false;
+    while (!smallerTokenFound) {
+        const token = gen(desiredTokenLength, {skipPadding: true, returnType: "number"});
+        smallerTokenFound = token.toString().length < desiredTokenLength;
+    }
+});
+
+test("setting skipPadding to true may result in varied bigint token lengths if length is set to >1", () => {
+    const desiredTokenLength = 6;
+    let smallerTokenFound = false;
+    while (!smallerTokenFound) {
+        const token = gen(desiredTokenLength, {skipPadding: true, returnType: "bigint"});
+        smallerTokenFound = token.toString().length < desiredTokenLength;
+    }
+});
+
+test("setting skipPadding to true may not result in greater string token lengths if length is set to >1", () => {
+    const desiredTokenLength = 6;
+    let largerTokenFound = false;
+    for (let i = 0; i < 10000; i++) {
+        const token = gen(desiredTokenLength, {skipPadding: true});
+        largerTokenFound = token.length > desiredTokenLength;
+    }
+    expect(largerTokenFound).toStrictEqual(false);
+});
+
+test("setting skipPadding to true may not result in greater number token lengths if length is set to >1", () => {
+    const desiredTokenLength = 6;
+    let largerTokenFound = false;
+    for (let i = 0; i < 10000; i++) {
+        const token = gen(desiredTokenLength, {skipPadding: true, returnType: "number"});
+        largerTokenFound = token.toString().length > desiredTokenLength;
+    }
+    expect(largerTokenFound).toStrictEqual(false);
+});
+
+test("setting skipPadding to true may not result in greater bigint token lengths if length is set to >1", () => {
+    const desiredTokenLength = 6;
+    let largerTokenFound = false;
+    for (let i = 0; i < 10000; i++) {
+        const token = gen(desiredTokenLength, {skipPadding: true, returnType: "bigint"});
+        largerTokenFound = token.toString().length > desiredTokenLength;
+    }
+    expect(largerTokenFound).toStrictEqual(false);
 });
 
 test("token generation algorithm returns a string by default", () => {
