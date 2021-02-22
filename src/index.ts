@@ -2,9 +2,15 @@
  * @module n-digit-token
  */
 
-const {randomBytes} = require("crypto");
+import { randomBytes } from "crypto";
 
 const DEFAULT_BYTE_SIZE = 64;
+
+type Options = {
+    returnType?: string;
+    skipPadding?: boolean;
+    customMemory?: number;
+}
 
 /**
  * Validates input length.
@@ -12,7 +18,7 @@ const DEFAULT_BYTE_SIZE = 64;
  * @param {any} input
  * @throws {error} if not called with a positive integer
  */
-const validateLength = (input) => {
+const validateLength = (input: number) => {
     if (!Number.isInteger(input) || input <= 0) {
         throw new Error("Invalid length: must be called with a positive integer.");
     }
@@ -26,25 +32,32 @@ const validateLength = (input) => {
  * @param {object} options
  * @throws {error} if called with invalid options
  */
-const validateOptions = (length, options) => {
+const validateOptions = (length: number, options?: Options) => {
     if (!options) {
         return;
     }
     if ("avoidModuloBias" in options) {
+        /* tslint:disable-next-line:no-console */
         console.warn("Warning - deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.");
     }
-    if ("skipPadding" in options) {
+    if (options.skipPadding) {
         validateSkipPadding(length, options);
     }
-    if ("returnType" in options) {
+    if (options.returnType) {
         validateReturnType(length, options);
     }
-    if ("customMemory" in options) {
+    if (options.customMemory === 0) {
+        throw new Error("Invalid options: customMemory must be a positive integer.");
+    }
+    if (options.customMemory) {
         validateCustomMemory(length, options);
     }
 };
 
-const validateSkipPadding = (length, options) => {
+const validateSkipPadding = (length: number, options?: Options) => {
+    if (!options) {
+        return;
+    }
     if (typeof options.skipPadding !== "boolean") {
         throw new Error("Invalid options: skipPadding must be a boolean.");
     }
@@ -53,7 +66,10 @@ const validateSkipPadding = (length, options) => {
     }
 };
 
-const validateReturnType = (length, options) => {
+const validateReturnType = (length: number, options?: Options) => {
+    if (!options) {
+        return;
+    }
     if (typeof options.returnType !== "string") {
         throw new Error("Invalid options: returnType must be specified in a string. For example 'number' or 'string'.");
     }
@@ -78,14 +94,19 @@ const validateReturnType = (length, options) => {
     }
 };
 
-const validateCustomMemory = (length, options) => {
+const validateCustomMemory = (length: number, options?: Options) => {
+    if (!options || !options.customMemory) {
+        return;
+    }
     if (!Number.isInteger(options.customMemory) || options.customMemory <= 0) {
         throw new Error("Invalid options: customMemory must be a positive integer.");
     }
     if (options.customMemory < (DEFAULT_BYTE_SIZE + length)) {
+        /* tslint:disable-next-line:no-console */
         console.warn('Warning - scarce memory: Allocated memory is less than ideal for the algorithm, this *may* result in decreased performance.');
     }
     if (options.customMemory > (DEFAULT_BYTE_SIZE + length) * 2) {
+        /* tslint:disable-next-line:no-console */
         console.warn('Warning - overcompensated memory: Allocated memory is more than ideal for the algorithm, this *may* result in decreased performance.');
     }
 };
@@ -97,7 +118,7 @@ const validateCustomMemory = (length, options) => {
  * @param {number} length
  * @return {string} bytes in hex
  */
-const generateSecureBytes = (length) => {
+const generateSecureBytes = (length: number): string => {
     return randomBytes(length).toString("hex");
 };
 
@@ -107,7 +128,7 @@ const generateSecureBytes = (length) => {
  * @param {number} length
  * @return {bigint} max
  */
-const calculateMax = (byteCount, length) => {
+const calculateMax = (byteCount: number, length: number): bigint => {
     const maxDecimal = BigInt(2n ** (BigInt(byteCount) * 8n) - 1n);
     return maxDecimal - (maxDecimal % (10n ** BigInt(length))) - 1n;
 };
@@ -118,8 +139,8 @@ const calculateMax = (byteCount, length) => {
  * @param {object} options
  * @return {number} required number of bytes
  */
-const calculateByteSize = (length, options) => {
-    return options && "customMemory" in options ? options.customMemory : DEFAULT_BYTE_SIZE + length;
+const calculateByteSize = (length: number, options?: Options): number => {
+    return options && options.customMemory ? options.customMemory : DEFAULT_BYTE_SIZE + length;
 };
 
 /**
@@ -128,7 +149,7 @@ const calculateByteSize = (length, options) => {
  * @param {string} token
  * @return {string} padded token
  */
-const padTokenIfNecessary = (length, token) => {
+const padTokenIfNecessary = (length: number, token: string): string => {
     return token.length === length ? token : token.padStart(length, '0');
 };
 
@@ -139,12 +160,12 @@ const padTokenIfNecessary = (length, token) => {
  * @param {object} [options] options object
  * @return {bigint} token
  */
-const generateWithoutModuloBias = (length, options) => {
+const generateWithoutModuloBias = (length: number, options?: Options): bigint => {
     const byteSize = calculateByteSize(length, options);
     const max = calculateMax(byteSize, length);
 
     let done = false;
-    let secureInt;
+    let secureInt = 0n;
 
     while (!done) {
         secureInt = 0n; // minimize memory usage
@@ -163,12 +184,12 @@ const generateWithoutModuloBias = (length, options) => {
  * @param {object} options
  * @return {string|number|bigint} formatted token
  */
-const handleOptions = (secureBigIntToken, length, options) => {
+const handleOptions = (secureBigIntToken: bigint, length: number, options?: Options): string | number | bigint => {
     if (!options) {
         return padTokenIfNecessary(length, secureBigIntToken.toString(10));
     }
 
-    if (!("returnType" in options)) {
+    if (!options.returnType) {
         const tokenString = secureBigIntToken.toString(10);
         return options.skipPadding ? tokenString : padTokenIfNecessary(length, tokenString);
     }
@@ -179,7 +200,7 @@ const handleOptions = (secureBigIntToken, length, options) => {
 
         case "number":
         case "integer":
-            return parseInt(secureBigIntToken, 10);
+            return Number(secureBigIntToken);
 
         default:
             const tokenString = secureBigIntToken.toString(10);
@@ -201,14 +222,14 @@ const handleOptions = (secureBigIntToken, length, options) => {
  * @param {number} [options.customMemory] memory used in bytes WARNING: Advanced option, use with caution!!
  * @return {string|number|bigint} token
  */
-const generateSecureToken = (length, options) => {
+const generateSecureToken = (length: number, options?: Options): string | number | bigint => {
     validateLength(length);
     validateOptions(length, options);
     const secureBigIntToken = generateWithoutModuloBias(length, options);
     return handleOptions(secureBigIntToken, length, options);
 };
 
-module.exports = {
-    generateSecureToken,
-    gen: generateSecureToken,
-};
+export {
+    generateSecureToken as generateSecureToken,
+    generateSecureToken as gen,
+}
