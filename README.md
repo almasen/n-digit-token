@@ -2,6 +2,8 @@
 
 Generate a cryptographically secure pseudo-random token of N digits.
 
+[![Latest stable](https://img.shields.io/npm/v/n-digit-token/latest.svg?style=flat-square)](https://https://www.npmjs.com/package/n-digit-token)
+
 ## Quick start
 
 `gen(n)` where `n` is the desired length/number of digits.
@@ -13,7 +15,7 @@ const token = gen(6);
 // => '681485'
 ```
 
-## Introduction
+## Summary
 
 This tiny module generates an n-digit cryptographically strong pseudo-random token in constant time and avoids modulo bias.
 
@@ -36,7 +38,39 @@ _(and I don't know why you would ever want larger tokens)_.
 
 As of `n-digit-token@2.x` February 2021
 
-### Background
+## Details
+
+- [n-digit-token](#n-digit-token)
+- [Quick start](#quick-start)
+- [Summary](#summary)
+  - [Modulo bias](#modulo-bias)
+  - [Performance](#performance)
+  - [Comparisons](#comparisons)
+- [Details](#details)
+- [Background](#background)
+- [Detailed usage](#detailed-usage)
+- [Algorithmic properties](#algorithmic-properties)
+  - [Memory usage](#memory-usage)
+- [Options](#options)
+  - [options.returnType](#optionsreturntype)
+    - [Return type compatibility](#return-type-compatibility)
+    - [Examples](#examples)
+  - [options.skipPadding](#optionsskippadding)
+    - [Generating digits](#generating-digits)
+      - [Generate single-digit decimal](#generate-single-digit-decimal)
+      - [Generate multi-digit decimal](#generate-multi-digit-decimal)
+    - [Equally random](#equally-random)
+      - [Why not just discard numbers that start with 0?](#why-not-just-discard-numbers-that-start-with-0)
+        - [How much discarded](#how-much-discarded)
+  - [options.customMemory](#optionscustommemory)
+  - [options.avoidModuloBias (deprecated)](#optionsavoidmodulobias-deprecated)
+- [Test](#test)
+  - [Scripts](#scripts)
+- [Dependencies](#dependencies)
+  - [Browserify](#browserify)
+- [License](#license)
+
+## Background
 
 I was looking for a simple module that generates an n-digit token that could be used for 2FA among others and was surprised that I couldn't find one that uses a cryptographically secure number generator ([CSPRNG](https://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator))
 
@@ -227,10 +261,6 @@ Please note that both **giving too few or too much memory** to the algorithm **m
 
 If the application detects unsuitable amount of memory, it may warn you in the debug console, but will continue to execute.
 
-### options.customByteStream
-
-_To be added_
-
 ### options.avoidModuloBias (deprecated)
 
 This setting has been deprecated as of `n-digit-token@v2.x` since the algorithm avoids modulo bias by default. Therefore, the use of this option is now unnecessary and ignored by the application.
@@ -241,16 +271,19 @@ Install the devDependencies and run `npm test` for the module tests.
 
 ### Scripts
 
-- `npm run lint` to run eslint
-- `npm run extended-test` runs 1000 iterations of each test scenario
+- `npm test` to see interactive tests and coverage
+- `npm run build` to compile JavaScript
+- `npm run lint` to run linting
 
-### Dependencies
+## Dependencies
+
+`0 dependencies`
 
 This package is solely dependent on the built-in `nodeJS/Crypto` module.
 
-#### Browserify
+### Browserify
 
-You may have success running this module with [crypto-browserify](https://www.npmjs.com/package/crypto-browserify), but note that this is intended for server-side use.
+You may have success running this module with [crypto-browserify](https://www.npmjs.com/package/crypto-browserify), but note that this is intended for server-side use and therefore in-browser use is not natively supported.
 
 ## License
 
