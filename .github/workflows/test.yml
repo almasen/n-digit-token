@@ -53,7 +53,3 @@ jobs:
         with:
           name: coverage
           path: ./coverage
-
-      - name: Run extended tests
-        run: npm run extended-test
-        working-directory: ./
