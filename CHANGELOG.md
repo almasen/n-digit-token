@@ -20,7 +20,7 @@
 
 * `v1.x` has been deprecated in favour of fully superior `v2.x`
 * In order to achieve modulo precision with high performance, support of `BigInt` literals is required
-  * TODO: could this cause incompatibilities anywhere?
+* New minimum required nodeJS version is `node >= 10.4.0`
 * `options.avoidModuloBias` has been deprecated as `n-digit-token@2.x` has this built-in
 
 ### Fixed
