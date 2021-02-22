@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { gen, generateSecureToken } from '../index';
 
-test("gen shorthand calls generateSecureToken function as expected", () => {
+test('gen shorthand calls generateSecureToken function as expected', () => {
     for (let length = 1; length <= 32; length++) {
         const genResult = gen(length);
         const generateSecureTokenResult = generateSecureToken(length);

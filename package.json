@@ -30,9 +30,10 @@
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
     "scripts": {
-        "test": "jest",
         "build": "tsc",
-        "lint": "tslint -p tsconfig.json"
+        "test": "jest",
+        "lint": "tslint -p tsconfig.json",
+        "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\""
     },
     "dependencies": {},
     "devDependencies": {

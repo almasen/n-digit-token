@@ -7,7 +7,7 @@ afterEach(() => {
     jest.clearAllMocks();
 });
 
-test("by default token generation algorithm returns values within expected distribution", () => {
+test('by default token generation algorithm returns values within expected distribution', () => {
     const total = 100000;
     const map = new Map();
     for (let i = 0; i < total; i++) {
@@ -25,11 +25,11 @@ test("by default token generation algorithm returns values within expected distr
     }
 });
 
-test("token generation algorithm provided less than ideal memory still returns values within expected distribution", () => {
+test('token generation algorithm provided less than ideal memory still returns values within expected distribution', () => {
     const total = 100000;
     const map = new Map();
     for (let i = 0; i < total; i++) {
-        const token = gen(1, {customMemory: 1});
+        const token = gen(1, { customMemory: 1 });
         if (map.has(token)) {
             map.set(token, map.get(token) + 1);
         } else {
