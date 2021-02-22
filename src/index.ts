@@ -6,8 +6,12 @@ import { randomBytes } from 'crypto';
 
 const DEFAULT_BYTE_SIZE = 64;
 
+/**
+ * Customisation options object.
+ * @type {{ returnType?: string, skipPadding?: boolean | customMemory?: number }}
+ */
 type Options = {
-    returnType?: string;
+    returnType?: 'string' | 'number' | 'bigint';
     skipPadding?: boolean;
     customMemory?: number;
 };
@@ -18,7 +22,7 @@ type Options = {
  * @param {any} input
  * @throws {error} if not called with a positive integer
  */
-const validateLength = (input: number) => {
+const validateLength = (input: any) => {
     if (!Number.isInteger(input) || input <= 0) {
         throw new Error('Invalid length: must be called with a positive integer.');
     }
@@ -29,7 +33,7 @@ const validateLength = (input: number) => {
 /**
  * Validates input options.
  * @param {number} length
- * @param {object} options
+ * @param {Options} [options]
  * @throws {error} if called with invalid options
  */
 const validateOptions = (length: number, options?: Options) => {
@@ -131,7 +135,7 @@ const calculateMax = (byteCount: number, length: number): bigint => {
 /**
  * Calculate total size of byte stream to be generated.
  * @param {number} length
- * @param {object} options
+ * @param {Options} [options]
  * @return {number} required number of bytes
  */
 const calculateByteSize = (length: number, options?: Options): number => {
@@ -152,7 +156,7 @@ const padTokenIfNecessary = (length: number, token: string): string => {
  * Generates a cryptographically secure pseudo random token string of given length.
  * This implementation avoids modulo bias.
  * @param {number} length
- * @param {object} [options] options object
+ * @param {Options} [options]
  * @return {bigint} token
  */
 const generateWithoutModuloBias = (length: number, options?: Options): bigint => {
@@ -176,7 +180,7 @@ const generateWithoutModuloBias = (length: number, options?: Options): bigint =>
  * Handle token return type and format based on user options.
  * @param {bigint} secureBigIntToken token
  * @param {number} length
- * @param {object} options
+ * @param {Options} [options]
  * @return {string|number|bigint} formatted token
  */
 const handleOptions = (secureBigIntToken: bigint, length: number, options?: Options): string | number | bigint => {
@@ -211,11 +215,11 @@ const handleOptions = (secureBigIntToken: bigint, length: number, options?: Opti
  * By default the algorithm returns the token as string which may start with zeros.
  * This can be customised via the options object. Please consult the documentation if interested.
  * @param {number} length desired token length
- * @param {object} [options] options object (optional)
+ * @param {Options} [options] options object (optional)
  * @param {string} [options.returnType='string'] desired return type (default=string)
  * @param {boolean} [options.skipPadding=false] set to true to avoid leading zeros
  * @param {number} [options.customMemory] memory used in bytes WARNING: Advanced option, use with caution!!
- * @return {string|number|bigint} token
+ * @return {string|number|bigint} token as string (by default)
  */
 const generateSecureToken = (length: number, options?: Options): string | number | bigint => {
     validateLength(length);
