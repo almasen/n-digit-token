@@ -1,6 +1,6 @@
 ## Change log
 
-## 2.0.0 - beta
+## 2.0.0 - beta @ 2020-02-22
 
 **Complete TypeScript rewrite**
 

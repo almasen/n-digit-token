@@ -9,14 +9,11 @@
   <a href="#comparisons">
     <img src="https://img.shields.io/badge/Modulo%20bias-avoided-blue?style=flat-square" alt="Modulo bias avoided"/>
   </a>
-  <a href="#performance">
-    <img src="https://img.shields.io/badge/complexity-O(1)-birghtgreen?style=flat-square" alt="Algorithmic complexity"/>
-  </a>
   <a href="https://github.com/almasen/n-digit-token/actions/workflows/test-and-publish.yml">
     <img src="https://img.shields.io/badge/coverage-100%25-birghtgreen?logo=jest&style=flat-square" alt="Test coverage"/>
   </a>
-  <a href="https://www.npmjs.com/package/n-digit-token">
-    <img src="https://img.shields.io/npm/v/n-digit-token/latest.svg?style=flat-square" alt="Latest stable version"/>
+  <a href="#performance">
+    <img src="https://img.shields.io/badge/complexity-O(1)-blue?style=flat-square" alt="Algorithmic complexity"/>
   </a>
   <a href="https://www.npmjs.com/package/n-digit-token">
     <img src="https://img.shields.io/badge/node-%3E%3D%2010.4.0-birghtgreen?style=flat-square" alt="Compatibility node >= 10.4.0"/>
@@ -106,7 +103,7 @@ If your application needs cryptographically strong pseudo random values, this us
 
 ### Performance
 
-The `n-digit-token` algorithm executes with `O(1)` time complexity, in other words in constant time when `length <= 100`. This makes `n-digit-token` suitable for cryptographic use cases.
+The `n-digit-token` algorithm executes with `O(1)` time complexity, i.e. in constant time when `length <= 100`. This makes `n-digit-token` suitable for cryptographic use cases.
 
 Normally, you would never need to generate tokens that are above a few digits, such as 6 or 8, so this threshold is already an overkill.
 
@@ -119,11 +116,11 @@ By default the algorithm ensures modulo precision whilst also balancing performa
 In order to achieve `O(1)` running time for lengths `1-100` the algorithm will attempt to reserve memory linearly scaling with the desired token length.
 
 For token sizes between `1-32` the maximum used memory will not exceed `128 bytes`.
-For very large tokens, such as a `100` digits, the max memory by default is `1 kibibyte`.
+For insanely large tokens, such as a `1000` digits, the max memory by default is still within `1 kibibyte`.
 
 ## Detailed usage
 
-`gen()` is just a shorthand for `generateSecureToken()`, use whichever you prefer.
+`gen()` is just a shorthand for `generateSecureToken()` use whichever you prefer.
 
 ``` javascript
 const { gen, generateSecureToken } = require('n-digit-token');
