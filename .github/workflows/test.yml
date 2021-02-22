@@ -15,10 +15,10 @@ jobs:
       - name: Checkout GitHub repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js 12.x # TODO: change to node 14
+      - name: Set up Node.js 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '14.x'
 
       - name: Install npm packages
         working-directory: ./
@@ -35,10 +35,10 @@ jobs:
       - name: checkout Github repository
         uses: actions/checkout@v2
 
-      - name: set up Node.js 12.x
+      - name: set up Node.js 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '14.x'
 
       - name: npm install
         working-directory: ./
