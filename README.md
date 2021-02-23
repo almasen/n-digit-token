@@ -134,13 +134,17 @@ The below chart represents the time it takes (in nanoseconds) to generate a toke
   Time taken per token length
 </p>
 
-![Time complexity](./img/time-complexity.svg)
+[![Time complexity](./img/time-complexity.svg)](https://raw.githubusercontent.com/almasen/n-digit-token/c3a66bbf99516da413a757433c6ed2ee9d8e76c4/img/time-complexity.svg)
 
 <p align="center">
   <small>
   y-axis shows time in nanoseconds / token length (AMD EPYC 7000 @ 2.2 GHz)
   </small>
 </p>
+
+From this test and the diagram above it is shown that for up to `~100` digits the running time is constant, for larger tokens, the time taken is growing by gradually more.
+
+As this algorithm is not designed to be used as a pseudo random digit stream, but to generate fixed-size tokens, this matches expectations. That said, it would be technically feasible to generate a large number of short tokens via this module that still runs in constant time, and then concatenate the tokens to a large stream.
 
 ### Memory usage
 
