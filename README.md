@@ -65,6 +65,9 @@ As of `n-digit-token@2.x` February 2021
 - [Background](#background)
 - [Algorithmic properties](#algorithmic-properties)
   - [Performance](#performance-1)
+    - [Entropy](#entropy)
+    - [Libuv's threadpool](#libuvs-threadpool)
+    - [Time complexity chart](#time-complexity-chart)
   - [Memory usage](#memory-usage)
 - [Detailed usage](#detailed-usage)
 - [Options](#options)
@@ -108,6 +111,36 @@ The `n-digit-token` algorithm executes with `O(1)` time complexity, i.e. in cons
 Normally, you would never need to generate tokens that are above a few digits, such as 6 or 8, so this threshold is already an overkill.
 
 The expected execution time of generating a token where `length <= 1000` is still within `1 ms` on a modern CPU.
+
+#### Entropy
+
+Note that for a cryptographic PRNG the system's entropy is an important factor. The `n-digit-token` function will `wait` until there is sufficient entropy available as it is uses the `crypto.randomBytes()` method.
+
+This should normally not take longer than a few milliseconds unless the system has just booted very recently.
+
+You can read more about this [here](https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback).
+
+#### Libuv's threadpool
+
+As `n-digit-token` is dependent on `crypto.randomBytes()` it uses libuv's threadpool, which can have performance implications for some applications. Please refer to the documentation [here](https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback) for more information.
+
+#### Time complexity chart
+
+To test the consistency of the speed of the algorithm on a modern CPU, `n-digit-token` was called to generate a token of length `1` to `1000` on an `AMD EPYC 7000` clocked at `2.2 GHz`. This test was repeated a `1000` times on different occasions and the times were averaged.
+
+The below chart represents the time it takes (in nanoseconds) to generate a token of length `x`:
+
+<p align="center">
+  Time taken per token length
+</p>
+
+![Time complexity](./img/time-complexity.svg)
+
+<p align="center">
+  <small>
+  y-axis shows time in nanoseconds / token length (AMD EPYC 7000 @ 2.2 GHz)
+  </small>
+</p>
 
 ### Memory usage
 
