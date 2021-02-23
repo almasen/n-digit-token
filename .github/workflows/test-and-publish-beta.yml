@@ -1,10 +1,10 @@
-name: Test & publish
+name: Test & publish beta version
 
 # Trigger on push
 on:
   push:
     branches:
-      - master # master (rerun tests after merging a PR)
+      - dev
 
 jobs:
   # build and run tests
@@ -79,7 +79,8 @@ jobs:
         run: npm run build
 
       # Publish to npm only if new version
-      - name: Publish to npm
+      - name: Publish beta to npm
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
+          tag: "beta"
