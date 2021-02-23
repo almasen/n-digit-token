@@ -1,6 +1,12 @@
 ## Change log
 
-## 2.0.0 - 2021-02-23
+## 2.0.1 - 2021-02-23
+
+### Fixed
+
+* Conflict in deployment CI workflow due to beta version
+
+## 2.0.0 - 2021-02-22
 
 **Complete TypeScript rewrite**
 
