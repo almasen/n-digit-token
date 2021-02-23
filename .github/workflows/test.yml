@@ -1,4 +1,4 @@
-name: Test & publish beta version
+name: Test
 
 # Trigger on push
 on:
@@ -57,30 +57,3 @@ jobs:
         with:
           name: coverage
           path: ./coverage
-
-  publish:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout Github repository
-        uses: actions/checkout@v2
-
-      - name: set up Node.js 14.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: '14.x'
-
-      - name: Install npm packages
-        working-directory: ./
-        run: npm ci
-
-      - name: Build project
-        working-directory: ./
-        run: npm run build
-
-      # Publish to npm only if new version
-      - name: Publish beta to npm
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          tag: "beta"
