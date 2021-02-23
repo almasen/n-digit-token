@@ -1,6 +1,6 @@
 {
     "name": "n-digit-token",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Cryptographically secure pseudo-random token of n digits",
     "keywords": [
         "token",
@@ -13,7 +13,9 @@
         "cryptography",
         "random",
         "CSPRNG",
-        "secure-random"
+        "secure-random",
+        "RNG",
+        "PRNG"
     ],
     "homepage": "https://github.com/almasen/n-digit-token#readme",
     "repository": {
