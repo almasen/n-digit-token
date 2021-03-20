@@ -111,6 +111,11 @@ test('token generation algorithm validates custom memory option correctly', () =
 });
 
 test('token generation algorithm validates custom byte stream option correctly', () => {
+    const noParamsFunction = (): Buffer => { return Buffer };
+    const invalidParamsFunction = (length: string): Buffer => { return Buffer; };
+    const invalidVoidFunction = (length: number): void => {};
+    const invalidReturnFunction = (length: number): string => { return ""; };
+
     expect(() => {
         generateSecureToken(16, { customByteStream: 'a' });
     }).toThrow(new Error('Invalid options: customByteStream must be a function that returns a byte Buffer.'));
@@ -118,6 +123,22 @@ test('token generation algorithm validates custom byte stream option correctly',
     expect(() => {
         generateSecureToken(16, { customByteStream: true });
     }).toThrow(new Error('Invalid options: customByteStream must be a function that returns a byte Buffer.'));
+
+    expect(() => {
+        generateSecureToken(16, { customByteStream: noParamsFunction });
+    }).toThrow();
+
+    expect(() => {
+        generateSecureToken(16, { customByteStream: invalidParamsFunction });
+    }).toThrow();
+
+    expect(() => {
+        generateSecureToken(16, { customByteStream: invalidVoidFunction });
+    }).toThrow();
+
+    expect(() => {
+        generateSecureToken(16, { customByteStream: invalidReturnFunction });
+    }).toThrow();
 
     const token = generateSecureToken(16, { customByteStream: randomBytes });
     expect(token.length).toStrictEqual(16);

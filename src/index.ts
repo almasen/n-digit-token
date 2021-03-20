@@ -8,13 +8,13 @@ const DEFAULT_BYTE_SIZE = 64;
 
 /**
  * Customisation options object.
- * @type {{ returnType?: string, skipPadding?: boolean | customMemory?: number | customByteStream?: Function }}
+ * @type {{ returnType?: string, skipPadding?: boolean | customMemory?: number | customByteStream?: () => Buffer }}
  */
 type Options = {
     returnType?: 'string' | 'number' | 'bigint';
     skipPadding?: boolean;
     customMemory?: number;
-    customByteStream?: Function;
+    customByteStream?: (length: number) => Buffer;
 };
 
 /**
