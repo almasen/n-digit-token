@@ -88,12 +88,12 @@ As of `n-digit-token@2.x` February 2021
     - [Compatibility table](#compatibility-table)
     - [Examples](#examples-1)
   - [options.customMemory](#optionscustommemory)
-  - [options.customMemory](#optionscustommemory-1)
+  - [options.customByteStream](#optionscustombytestream)
   - [options.avoidModuloBias (deprecated)](#optionsavoidmodulobias-deprecated)
+- [Running in browser](#running-in-browser)
 - [Test](#test)
   - [Scripts](#scripts)
 - [Dependencies](#dependencies)
-  - [Running in browser](#running-in-browser)
 - [Support](#support)
 - [License](#license)
 
@@ -380,13 +380,13 @@ Please note that both **giving too few or too much memory** to the algorithm **m
 
 If the application detects unsuitable amount of memory, it may warn you in the debug console, but will continue to execute.
 
-### options.customMemory
+### options.customByteStream
 
-This is a highly advanced option. You should only use this if you don't have access to `node crypto`.
+This is an advanced option. You should only use this if you don't have access to `node crypto`.
 
-With this option you can specify a synchronous custom CSPRNG byte stream function that returns a `Buffer`.
+With this option you can specify a custom synchronous CSPRNG byte stream function that returns a `Buffer` that `n-digit-token` will use.
 
-You may find benefit of this option if you need to run `n-digit-token` in the browser with e.g. `crypto-browserify`:
+You may find use of this option if you need to run `n-digit-token` in the browser with e.g. `crypto-browserify`:
 
 ``` javascript
 const { randomBytes } = require('crypto-browserify');
@@ -401,9 +401,17 @@ Please note that this is option has only been tested with `crypto-browserify` an
 
 This setting has been deprecated as of `n-digit-token@v2.x` since the algorithm avoids modulo bias by default. Therefore, the use of this option is now unnecessary and ignored by the application.
 
+## Running in browser
+
+Please note that `n-digit-token` is intended to be used server-side and therefore browser support is not actively maintained.
+
+However, as of `v2.0.2` you can use `n-digit-token` with `crypto-browserify` or other custom byte streams.
+
+Please refer to the [customByteStream](#optionscustombytestream) option for more details.
+
 ## Test
 
-Install the devDependencies and run `npm test` for the module tests.
+Install the `devDependencies` and run `npm test` for the module tests.
 
 ### Scripts
 
@@ -416,10 +424,6 @@ Install the devDependencies and run `npm test` for the module tests.
 `0 dependencies`
 
 This package is solely dependent on the built-in `nodeJS/Crypto` module.
-
-### Running in browser
-
-You may have success running this module with [crypto-browserify](https://www.npmjs.com/package/crypto-browserify), but note that this is intended for server-side use and therefore in-browser use is not natively supported.
 
 ## Support
 
