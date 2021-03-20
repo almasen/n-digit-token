@@ -58,6 +58,27 @@ jobs:
           name: coverage
           path: ./coverage
 
+  coverage:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub repository
+        uses: actions/checkout@master
+
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: coverage
+
+      - name: Publish test coverage
+        uses: easingthemes/ssh-deploy@v2.1.4
+        env:
+          SOURCE: "coverage"
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          TARGET: ${{ secrets.COVERAGE_DIR }}
+
   publish:
     needs: test
     runs-on: ubuntu-latest
