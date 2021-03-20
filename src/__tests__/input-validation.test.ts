@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { gen, generateSecureToken } from '../index';
+import { randomBytes } from 'crypto';
 
 /* eslint-disable max-len */
 
@@ -106,5 +107,18 @@ test('token generation algorithm validates custom memory option correctly', () =
     }).toThrow(new Error('Invalid options: customMemory must be a positive integer.'));
 
     const token = generateSecureToken(16, { customMemory: 96 });
+    expect(token.length).toStrictEqual(16);
+});
+
+test('token generation algorithm validates custom byte stream option correctly', () => {
+    expect(() => {
+        generateSecureToken(16, { customByteStream: 'a' });
+    }).toThrow(new Error('Invalid options: customByteStream must be a function that returns a byte Buffer.'));
+
+    expect(() => {
+        generateSecureToken(16, { customByteStream: true });
+    }).toThrow(new Error('Invalid options: customByteStream must be a function that returns a byte Buffer.'));
+
+    const token = generateSecureToken(16, { customByteStream: randomBytes });
     expect(token.length).toStrictEqual(16);
 });
