@@ -128,8 +128,8 @@ const validateCustomByteStream = (options?: Options) => {
  * @param {number} length
  * @return {string} bytes in hex
  */
-const generateSecureBytes = (length: number): string => {
-    return randomBytes(length).toString('hex');
+const generateSecureBytes = (length: number, options?: Options): string => {
+    return options && options.customByteStream ? options.customByteStream(length).toString('hex') : randomBytes(length).toString('hex');
 };
 
 /**
@@ -179,7 +179,7 @@ const generateWithoutModuloBias = (length: number, options?: Options): bigint =>
 
     while (!done) {
         secureInt = 0n; // minimize memory usage
-        const secureBytes = generateSecureBytes(byteSize);
+        const secureBytes = generateSecureBytes(byteSize, options);
         secureInt = BigInt('0x' + secureBytes);
         done = secureInt <= max;
     }
