@@ -88,6 +88,7 @@ As of `n-digit-token@2.x` February 2021
     - [Compatibility table](#compatibility-table)
     - [Examples](#examples-1)
   - [options.customMemory](#optionscustommemory)
+  - [options.customMemory](#optionscustommemory-1)
   - [options.avoidModuloBias (deprecated)](#optionsavoidmodulobias-deprecated)
 - [Test](#test)
   - [Scripts](#scripts)
@@ -378,6 +379,23 @@ const token = gen(6, { customMemory: 8 });
 Please note that both **giving too few or too much memory** to the algorithm **may negatively impact performance** by a considerable amount.
 
 If the application detects unsuitable amount of memory, it may warn you in the debug console, but will continue to execute.
+
+### options.customMemory
+
+This is a highly advanced option. You should only use this if you don't have access to `node crypto`.
+
+With this option you can specify a synchronous custom CSPRNG byte stream function that returns a `Buffer`.
+
+You may find benefit of this option if you need to run `n-digit-token` in the browser with e.g. `crypto-browserify`:
+
+``` javascript
+const { randomBytes } = require('crypto-browserify');
+const { gen, generateSecureToken } = require('n-digit-token');
+
+const token = gen(6, { customByteStream: randomBytes });
+```
+
+Please note that this is option has only been tested with `crypto-browserify` and inappropriate use may lead to various unintended consequences.
 
 ### options.avoidModuloBias (deprecated)
 

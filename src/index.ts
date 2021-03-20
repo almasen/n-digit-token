@@ -8,12 +8,13 @@ const DEFAULT_BYTE_SIZE = 64;
 
 /**
  * Customisation options object.
- * @type {{ returnType?: string, skipPadding?: boolean | customMemory?: number }}
+ * @type {{ returnType?: string, skipPadding?: boolean | customMemory?: number | customByteStream?: Function }}
  */
 type Options = {
     returnType?: 'string' | 'number' | 'bigint';
     skipPadding?: boolean;
     customMemory?: number;
+    customByteStream?: Function;
 };
 
 /**
@@ -47,6 +48,7 @@ const validateOptions = (length: number, options?: Options) => {
     validateSkipPadding(length, options);
     validateReturnType(length, options);
     validateCustomMemory(length, options);
+    validateCustomByteStream(options);
 };
 
 const validateSkipPadding = (length: number, options?: Options) => {
@@ -109,6 +111,15 @@ const validateCustomMemory = (length: number, options?: Options) => {
         console.warn('Warning - overcompensated memory: Allocated memory is more than ideal for the algorithm, this *may* result in decreased performance.');
     }
 };
+
+const validateCustomByteStream = (options?: Options) => {
+    if (!options || !options.customByteStream) {
+        return;
+    }
+    if (typeof options.customByteStream !== 'function') {
+        throw new Error('Invalid options: customByteStream must be a function that returns a byte Buffer.');
+    }
+}
 
 /* eslint-enable max-len */
 
@@ -219,6 +230,7 @@ const handleOptions = (secureBigIntToken: bigint, length: number, options?: Opti
  * @param {string} [options.returnType='string'] desired return type (default=string)
  * @param {boolean} [options.skipPadding=false] set to true to avoid leading zeros
  * @param {number} [options.customMemory] memory used in bytes WARNING: Advanced option, use with caution!!
+ * @param {number} [options.customByteStream] specify custom CSPRNG byte stream function WARNING: Advanced option, use with caution!!
  * @return {string|number|bigint} token as string (by default)
  */
 const generateSecureToken = (length: number, options?: Options): string | number | bigint => {
