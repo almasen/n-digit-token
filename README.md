@@ -9,11 +9,11 @@
   <a href="#comparisons">
     <img src="https://img.shields.io/badge/Modulo%20bias-avoided-blue?style=flat-square" alt="Modulo bias avoided"/>
   </a>
-  <a href="https://github.com/almasen/n-digit-token/actions/workflows/test-and-publish.yml">
+  <a href="https://repos.almasi.dev/n-digit-token/coverage">
     <img src="https://img.shields.io/badge/coverage-100%25-birghtgreen?logo=jest&style=flat-square" alt="Test coverage"/>
   </a>
   <a href="#performance">
-    <img src="https://img.shields.io/badge/complexity-O(1)-blue?style=flat-square" alt="Algorithmic complexity"/>
+    <img src="https://img.shields.io/badge/performance-O(1)-blue?style=flat-square" alt="Algorithmic time complexity"/>
   </a>
   <a href="https://www.npmjs.com/package/n-digit-token">
     <img src="https://img.shields.io/badge/node-%3E%3D%2010.4.0-birghtgreen?style=flat-square" alt="Compatibility node >= 10.4.0"/>
