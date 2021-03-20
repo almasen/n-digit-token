@@ -1,5 +1,11 @@
 ## Change log
 
+## 2.0.2 - 2021-03-20
+
+### Added
+
+* Support for custom random byte streams such as `crypto-browserify`
+
 ## 2.0.1 - 2021-02-23
 
 ### Fixed
