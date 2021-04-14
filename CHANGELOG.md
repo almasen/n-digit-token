@@ -1,5 +1,11 @@
 ## Change log
 
+## 2.0.3 - 2021-04-14
+
+### Added
+
+* Further support for in-browser use such as use with `crypto-browserify`
+
 ## 2.0.2 - 2021-03-20
 
 ### Added

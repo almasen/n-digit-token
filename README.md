@@ -7,7 +7,7 @@
     <img src="https://img.shields.io/badge/RNG-crytographically%20strong-blue?style=flat-square" alt="Cryptographically strong random number generator"/>
   </a>
   <a href="#comparisons">
-    <img src="https://img.shields.io/badge/Modulo%20bias-avoided-blue?style=flat-square" alt="Modulo bias avoided"/>
+    <img src="https://img.shields.io/badge/modulo%20bias-avoided-blue?style=flat-square" alt="Modulo bias avoided"/>
   </a>
   <a href="https://repos.almasi.dev/n-digit-token/coverage">
     <img src="https://img.shields.io/badge/coverage-100%25-birghtgreen?logo=jest&style=flat-square" alt="Test coverage"/>
@@ -15,8 +15,11 @@
   <a href="#performance">
     <img src="https://img.shields.io/badge/performance-O(1)-blue?style=flat-square" alt="Algorithmic time complexity"/>
   </a>
-  <a href="https://www.npmjs.com/package/n-digit-token">
+  <!-- <a href="https://www.npmjs.com/package/n-digit-token">
     <img src="https://img.shields.io/badge/node-%3E%3D%2010.4.0-birghtgreen?style=flat-square" alt="Compatibility node >= 10.4.0"/>
+  </a> -->
+  <a href="https://www.npmjs.com/package/n-digit-token">
+    <img src="https://img.shields.io/npm/dt/n-digit-token?style=flat-square" alt="Downloads"/>
   </a>
 </p>
 
@@ -54,48 +57,41 @@ _(and I don't know why you would ever want larger tokens)_.
 
 As of `n-digit-token@2.x` February 2021
 
-## Details
+## Detailed usage
 
-- [Quick start](#quick-start)
-- [Summary](#summary)
-  - [Modulo bias](#modulo-bias)
-  - [Performance](#performance)
-  - [Comparisons](#comparisons)
-- [Details](#details)
-- [Background](#background)
-- [Algorithmic properties](#algorithmic-properties)
-  - [Performance](#performance-1)
-    - [Entropy](#entropy)
-    - [Libuv's threadpool](#libuvs-threadpool)
-    - [Time complexity chart](#time-complexity-chart)
-  - [Memory usage](#memory-usage)
-- [Detailed usage](#detailed-usage)
-- [Options](#options)
-  - [options.skipPadding](#optionsskippadding)
-    - [Generating digits & padding](#generating-digits--padding)
-      - [Generate a single-digit decimal](#generate-a-single-digit-decimal)
-      - [Generate a multi-digit decimal](#generate-a-multi-digit-decimal)
-    - [Equally random](#equally-random)
-      - [Why not just discard numbers that start with 0?](#why-not-just-discard-numbers-that-start-with-0)
-      - [How much discarded](#how-much-discarded)
-    - [One-time tokens often start with zeros](#one-time-tokens-often-start-with-zeros)
-    - [Using skipPadding](#using-skippadding)
-      - [Example](#example)
-  - [options.returnType](#optionsreturntype)
-    - [Return type compatibility](#return-type-compatibility)
-    - [Examples](#examples)
-  - [Using returnType with skipPadding](#using-returntype-with-skippadding)
-    - [Compatibility table](#compatibility-table)
-    - [Examples](#examples-1)
-  - [options.customMemory](#optionscustommemory)
-  - [options.customByteStream](#optionscustombytestream)
-  - [options.avoidModuloBias (deprecated)](#optionsavoidmodulobias-deprecated)
-- [Running in browser](#running-in-browser)
-- [Test](#test)
-  - [Scripts](#scripts)
-- [Dependencies](#dependencies)
-- [Support](#support)
-- [License](#license)
+Just give the desired token length to get your random n-digit token.
+
+``` javascript
+const { gen, generateSecureToken } = require('n-digit-token');
+
+const token = gen(6);
+// => '681485'
+
+const anotherAuthToken = generateSecureToken(6);
+// => '090188'
+
+const anEightDigitToken = gen(8);
+// => '25280789'
+```
+
+`gen()` is just a shorthand for `generateSecureToken()` use whichever you prefer.
+
+### Typescript
+
+Or in `typescript`:
+
+``` typescript
+import { gen } from 'n-digit-token';
+
+const token: string = gen(6);
+// => '681485'
+```
+
+### Advanced options
+
+There are also some [advanced options](#options) though most users should not need these.
+
+# Details
 
 ## Background
 
@@ -156,34 +152,18 @@ In order to achieve `O(1)` running time for lengths `1-100` the algorithm will a
 For token sizes between `1-32` the maximum used memory will not exceed `128 bytes`.
 For insanely large tokens, such as a `1000` digits, the max memory by default is still within `1 kibibyte`.
 
-## Detailed usage
-
-`gen()` is just a shorthand for `generateSecureToken()` use whichever you prefer.
-
-``` javascript
-const { gen, generateSecureToken } = require('n-digit-token');
-
-const token = gen(6);
-// => '681485'
-
-const anotherAuthToken = generateSecureToken(6);
-// => '090188'
-
-const anEightDigitToken = gen(8);
-// => '25280789'
-```
-
 ## Options
 
 There are a few supported customisation options for the algorithm for some highly specific use cases.
 
 :exclamation: Most users will **NOT** need to change any of these options. :exclamation:
 
-|                      	| optional           	| default value 	|
-|----------------------	|--------------------	|---------------	|
-| options.returnType   	| :heavy_check_mark: 	| `'string'`      	|
-| options.skipPadding  	| :heavy_check_mark: 	| `false`         	|
-| options.customMemory 	| :heavy_check_mark: 	| N/A           	  |
+|                      	    | optional           	| default value 	|
+|--------------------------	|--------------------	|---------------	|
+| options.returnType   	    | :heavy_check_mark: 	| `'string'`     	|
+| options.skipPadding  	    | :heavy_check_mark: 	| `false`        	|
+| options.customMemory 	    | :heavy_check_mark: 	| `undefined`  	  |
+| options.customByteStream 	| :heavy_check_mark: 	| `undefined`  	  |
 
 ### options.skipPadding
 
@@ -401,7 +381,17 @@ Please note that this is option has only been tested with `crypto-browserify` an
 
 This setting has been deprecated as of `n-digit-token@v2.x` since the algorithm avoids modulo bias by default. Therefore, the use of this option is now unnecessary and ignored by the application.
 
-## Running in browser
+## Compatibility
+
+`n-digit-token` supports `node >= 10.4.0`. There are no additional compatibility requirements.
+
+### Dependencies
+
+:tada: `0 dependencies` :tada:
+
+This package is solely dependent on the built-in `nodeJS/crypto` module.
+
+### Running in browser
 
 Please note that `n-digit-token` is intended to be used server-side and therefore browser support is not actively maintained.
 
@@ -419,15 +409,13 @@ Install the `devDependencies` and run `npm test` for the module tests.
 - `npm run build` to compile JavaScript
 - `npm run lint` to run linting
 
-## Dependencies
-
-`0 dependencies`
-
-This package is solely dependent on the built-in `nodeJS/Crypto` module.
-
 ## Support
 
-Please consider supporting `n-digit-token` with a [one-time](https://www.paypal.me/almasen) or [GitHub Sponsors donation](https://github.com/sponsors/almasen) as this project takes considerable amount of time and effort to develop and maintain.
+*Buy me a coffee if you like this project*
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/almasi)
+
+If you like this project, please consider supporting `n-digit-token` with a [one-time](https://ko-fi.com/almasi) or [GitHub Sponsors donation](https://github.com/sponsors/almasen) as this project takes considerable amount of time and effort to develop and maintain.
 
 ## License
 
