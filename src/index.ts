@@ -231,7 +231,7 @@ const handleOptions = (secureBigIntToken: bigint, length: number, options?: Opti
  * @param {boolean} [options.skipPadding=false] set to true to avoid leading zeros
  * @param {number} [options.customMemory] memory used in bytes WARNING: Advanced option, use with caution!!
  * @param {number} [options.customByteStream] specify custom CSPRNG byte stream function WARNING: Advanced option, use with caution!!
- * @return {string|number|bigint} token as string (by default)
+ * @return {string|number|bigint} token (as string by default)
  */
 const generateSecureToken = (length: number, options?: Options): string | number | bigint => {
     validateLength(length);
