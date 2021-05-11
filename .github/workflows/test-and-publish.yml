@@ -105,7 +105,20 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-          dry-run: true
 
       - name: Print version number
-        run: echo ${{ steps.publishnpm.outputs.old-version }}
+        run: echo ${{ steps.publishnpm.outputs.version }}
+
+      - if: steps.publishnpm.outputs.type != 'none'
+        name: Generate GitHub release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GH_RELEASE_TOKEN }}"
+          automatic_release_tag: "v${{ steps.publishnpm.outputs.version }}"
+          prerelease: false
+          files: |
+            CHANGELOG.md
+            LICENSE
+            README.md
+            lib/**/*
+            package.json

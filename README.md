@@ -411,11 +411,7 @@ Install the `devDependencies` and run `npm test` for the module tests.
 
 ## Support
 
-*Buy me a coffee if you like this project*
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/almasi)
-
-If you like this project, please consider supporting `n-digit-token` with a [one-time](https://ko-fi.com/almasi) or [GitHub Sponsors donation](https://github.com/sponsors/almasen) as this project takes considerable amount of time and effort to develop and maintain.
+If you like this project, please consider supporting `n-digit-token` with a [one-time](https://github.com/sponsors/almasen?frequency=one-time) or [recurring donation](https://github.com/sponsors/almasen?frequency=recurring) as this project takes considerable amount of time and effort to develop and maintain.
 
 ## License
 
