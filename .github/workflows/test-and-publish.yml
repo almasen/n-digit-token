@@ -101,6 +101,11 @@ jobs:
 
       # Publish to npm only if new version
       - name: Publish to npm
+        id: publishnpm
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
+          dry-run: true
+
+      - name: Print version number
+        run: echo ${{ steps.publishnpm.outputs.old-version }}
