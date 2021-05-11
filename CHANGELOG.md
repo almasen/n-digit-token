@@ -1,5 +1,11 @@
 ## Change log
 
+## 2.0.4 - 2021-05-11
+
+### Added
+
+* Updated some `dev-dependencies` to their newer versions as per [#5](https://github.com/almasen/n-digit-token/pull/5)
+
 ## 2.0.3 - 2021-04-14
 
 ### Added
