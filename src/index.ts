@@ -224,7 +224,7 @@ const handleOptions = (secureBigIntToken: bigint, length: number, options?: Opti
  * This algorithm avoids modulo bias and runs in constant time for lengths <= 1000.
  *
  * By default the algorithm returns the token as string which may start with zeros.
- * This can be customised via the options object. Please consult the documentation if interested.
+ * This can be customised via the options object, please consult the documentation if interested.
  * @param {number} length desired token length
  * @param {Options} [options] options object (optional)
  * @param {string} [options.returnType='string'] desired return type (default=string)

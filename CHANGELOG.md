@@ -7,6 +7,10 @@
 * CI workflow for automatic GitHub release generation
 * Updated some `dev-dependencies` to their newer versions as per [#5](https://github.com/almasen/n-digit-token/pull/5)
 
+### Changed
+
+* Minor documentation improvements regarding customisation options
+
 ## 2.0.3 - 2021-04-14
 
 ### Added
