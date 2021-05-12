@@ -409,9 +409,19 @@ Install the `devDependencies` and run `npm test` for the module tests.
 - `npm run build` to compile JavaScript
 - `npm run lint` to run linting
 
-## Support
+## Support n-digit-token
+
+### Financial support
 
 If you like this project, please consider supporting `n-digit-token` with a [one-time](https://github.com/sponsors/almasen?frequency=one-time) or [recurring donation](https://github.com/sponsors/almasen?frequency=recurring) as this project takes considerable amount of time and effort to develop and maintain.
+
+### Star this project
+
+If you can't support `n-digit-token` financially, please consider giving the project a [GitHub:star:](https://github.com/almasen/n-digit-token) to help its discoverability. Thank you!
+
+### Contributing
+
+Code contributions are also warmly welcomed!
 
 ## License
 
