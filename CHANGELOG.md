@@ -1,11 +1,12 @@
 ## Change log
 
-## 2.x - 2021-08-15
+## 2.0.5 - 2021-08-15
 
 ### Added
 
 * Upgrade npm lockfile version
-* Bump dev-dependencies
+* Bump various dev-dependencies
+* Minor fixes and improvements
 
 ## 2.0.4 - 2021-05-11
 
