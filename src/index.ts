@@ -31,6 +31,7 @@ const validateLength = (input: any) => {
 
 /**
  * Validates input options.
+ * Please read the README for more information.
  * @param {number} length
  * @param {Options} [options]
  * @throws {error} if called with invalid options
@@ -49,6 +50,13 @@ const validateOptions = (length: number, options?: Options) => {
     validateCustomByteStream(options);
 };
 
+/**
+ * Validates options.skipPadding.
+ * Please read the README for more information.
+ * @param length
+ * @param options
+ * @throws {error} if called with invalid options
+ */
 const validateSkipPadding = (length: number, options?: Options) => {
     if (!options || !options.skipPadding) {
         return;
@@ -57,10 +65,17 @@ const validateSkipPadding = (length: number, options?: Options) => {
         throw new Error('Invalid options: skipPadding must be a boolean.');
     }
     if (options.skipPadding && length === 1) {
-        throw new Error('Invalid options: skipPadding can only be used with token length >1. How would you skip padding for a single digit token?');
+        throw new Error('Invalid options: skipPadding can only be used with token length >1.');
     }
 };
 
+/**
+ * Validates options.returnType.
+ * Please read the README for more information.
+ * @param length
+ * @param options
+ * @throw {error} if called with invalid options
+ */
 const validateReturnType = (length: number, options?: Options) => {
     if (!options || !options.returnType) {
         return;
@@ -89,6 +104,13 @@ const validateReturnType = (length: number, options?: Options) => {
     }
 };
 
+/**
+ * Validates options.customMemory.
+ * Please read the README for more information.
+ * @param length
+ * @param options
+ * @throws {error} if called with invalid options
+ */
 const validateCustomMemory = (length: number, options?: Options) => {
     if (!options || options.customMemory === undefined) {
         return;
@@ -110,6 +132,12 @@ const validateCustomMemory = (length: number, options?: Options) => {
     }
 };
 
+/**
+ * Validates type of options.customByteStream.
+ * Please read the README for more information.
+ * @param options
+ * @throws {error} if called with invalid options
+ */
 const validateCustomByteStream = (options?: Options) => {
     if (!options || !options.customByteStream) {
         return;
