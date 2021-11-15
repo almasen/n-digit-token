@@ -147,8 +147,6 @@ const validateCustomByteStream = (options?: Options) => {
     }
 };
 
-/* eslint-enable max-len */
-
 /**
  * Generate secure random bytes of given length.
  * @param {number} length
