@@ -29,8 +29,6 @@ const validateLength = (input: any) => {
     }
 };
 
-/* eslint-disable max-len */
-
 /**
  * Validates input options.
  * @param {number} length
@@ -119,7 +117,7 @@ const validateCustomByteStream = (options?: Options) => {
     if (typeof options.customByteStream !== 'function') {
         throw new Error('Invalid options: customByteStream must be a function that returns a byte Buffer.');
     }
-}
+};
 
 /* eslint-enable max-len */
 

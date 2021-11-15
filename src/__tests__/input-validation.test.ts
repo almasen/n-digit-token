@@ -111,10 +111,16 @@ test('token generation algorithm validates custom memory option correctly', () =
 });
 
 test('token generation algorithm validates custom byte stream option correctly', () => {
-    const noParamsFunction = (): Buffer => { return Buffer };
-    const invalidParamsFunction = (length: string): Buffer => { return Buffer; };
+    const noParamsFunction = (): Buffer => {
+        return Buffer;
+    };
+    const invalidParamsFunction = (length: string): Buffer => {
+        return Buffer;
+    };
     const invalidVoidFunction = (length: number): void => {};
-    const invalidReturnFunction = (length: number): string => { return ""; };
+    const invalidReturnFunction = (length: number): string => {
+        return '';
+    };
 
     expect(() => {
         generateSecureToken(16, { customByteStream: 'a' });
