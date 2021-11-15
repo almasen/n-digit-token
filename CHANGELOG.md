@@ -1,5 +1,15 @@
 ## Change log
 
+## 2.1.0 - 2021-11-15
+
+### Added
+
+* Bump development dependencies
+* Refactor main & validator modules
+* Clarified documentation for custom options
+* Minor fixes and improvements
+* Update package lock format
+
 ## 2.0.5 - 2021-08-15
 
 ### Added
