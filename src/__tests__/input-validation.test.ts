@@ -77,7 +77,7 @@ test('token generation algorithm throws an appropriate error on unknown return t
 test('setting skipPadding to true is only accepted for token lengths >1', () => {
     expect(() => {
         generateSecureToken(1, { skipPadding: true });
-    }).toThrow(new Error('Invalid options: skipPadding can only be used with token length >1. How would you skip padding for a single digit token?'));
+    }).toThrow(new Error('Invalid options: skipPadding can only be used with token length >1.'));
 });
 
 test('token generation algorithm rejects skipPadding=false in combination with a numerical return type.', () => {
