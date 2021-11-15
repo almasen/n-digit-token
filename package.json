@@ -1,6 +1,6 @@
 {
     "name": "n-digit-token",
-    "version": "2.0.5",
+    "version": "2.1.0",
     "description": "Cryptographically secure pseudo-random token of n digits",
     "keywords": [
         "token",
@@ -37,7 +37,7 @@
     "scripts": {
         "build": "tsc",
         "test": "jest",
-        "lint": "tslint -p tsconfig.json",
+        "lint": "tslint -p tsconfig.json --fix",
         "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\""
     },
     "dependencies": {},

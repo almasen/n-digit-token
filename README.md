@@ -44,8 +44,7 @@ The `2.x` version of the `n-digit-token` algorithm __does avoid__ [modulo bias](
 
 ### Performance
 
-This algorithm runs in `O(1)` constant time for up to a `100` digit long token sizes
-_(and I don't know why you would ever want larger tokens)_.
+This algorithm runs in `O(1)` constant time for up to a `100` digit long token sizes making it suitable for cryptographic applications _(and I don't know why you would ever need longer tokens)_.
 
 ### Comparisons
 
@@ -55,7 +54,7 @@ _(and I don't know why you would ever want larger tokens)_.
 | crypto.randomInt 	| :x:                       	| :heavy_check_mark:  	|
 | n-digit-token    	| :heavy_check_mark:        	| :heavy_check_mark:  	|
 
-As of `n-digit-token@2.x` February 2021
+As of `n-digit-token@2.x`
 
 ## Detailed usage
 

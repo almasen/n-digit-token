@@ -77,7 +77,7 @@ test('token generation algorithm throws an appropriate error on unknown return t
 test('setting skipPadding to true is only accepted for token lengths >1', () => {
     expect(() => {
         generateSecureToken(1, { skipPadding: true });
-    }).toThrow(new Error('Invalid options: skipPadding can only be used with token length >1. How would you skip padding for a single digit token?'));
+    }).toThrow(new Error('Invalid options: skipPadding can only be used with token length >1.'));
 });
 
 test('token generation algorithm rejects skipPadding=false in combination with a numerical return type.', () => {
@@ -111,10 +111,16 @@ test('token generation algorithm validates custom memory option correctly', () =
 });
 
 test('token generation algorithm validates custom byte stream option correctly', () => {
-    const noParamsFunction = (): Buffer => { return Buffer };
-    const invalidParamsFunction = (length: string): Buffer => { return Buffer; };
+    const noParamsFunction = (): Buffer => {
+        return Buffer;
+    };
+    const invalidParamsFunction = (length: string): Buffer => {
+        return Buffer;
+    };
     const invalidVoidFunction = (length: number): void => {};
-    const invalidReturnFunction = (length: number): string => { return ""; };
+    const invalidReturnFunction = (length: number): string => {
+        return '';
+    };
 
     expect(() => {
         generateSecureToken(16, { customByteStream: 'a' });
