@@ -1,5 +1,11 @@
 ## Change log
 
+## 2.1.1 - 2022-04-03
+
+### Added
+
+* Bump development dependencies
+
 ## 2.1.0 - 2021-11-15
 
 ### Added
