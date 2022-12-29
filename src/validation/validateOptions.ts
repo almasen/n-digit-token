@@ -17,7 +17,9 @@ export const validateOptions = (length: number, options?: Options) => {
     }
     if ('avoidModuloBias' in options) {
         /* tslint:disable-next-line:no-console */
-        console.warn('Warning - deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.');
+        console.warn(
+            'Warning - deprecated option: The updated algorithm avoids modulo bias by default, therefore the avoidModuloBias option is no longer necessary and has been deprecated.',
+        );
     }
     validateSkipPadding(length, options);
     validateReturnType(length, options);

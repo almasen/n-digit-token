@@ -16,6 +16,8 @@ export const validateSkipPadding = (length: number, options?: Options) => {
         throw new Error('Invalid options: skipPadding must be a boolean.');
     }
     if (options.skipPadding && length === 1) {
-        throw new Error('Invalid options: skipPadding can only be used with token length >1.');
+        throw new Error(
+            'Invalid options: skipPadding can only be used with token length >1.',
+        );
     }
 };

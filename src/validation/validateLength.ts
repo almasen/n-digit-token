@@ -6,6 +6,8 @@
  */
 export const validateLength = (length: number) => {
     if (!Number.isInteger(length) || length <= 0) {
-        throw new Error('Invalid length: must be called with a positive integer.');
+        throw new Error(
+            'Invalid length: must be called with a positive integer.',
+        );
     }
 };

@@ -1,6 +1,10 @@
 import { BIGINT, NUMBER, INTEGER, STRING } from './constants';
 
-type ReturnType = typeof BIGINT | typeof NUMBER | typeof INTEGER | typeof STRING;
+type ReturnType =
+    | typeof BIGINT
+    | typeof NUMBER
+    | typeof INTEGER
+    | typeof STRING;
 
 type Options = {
     returnType?: ReturnType;

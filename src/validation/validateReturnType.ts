@@ -13,18 +13,24 @@ export const validateReturnType = (length: number, options?: Options) => {
         return;
     }
     if (typeof options.returnType !== 'string') {
-        throw new Error("Invalid options: returnType must be specified in a string. For example 'number' or 'string'.");
+        throw new Error(
+            "Invalid options: returnType must be specified in a string. For example 'number' or 'string'.",
+        );
     }
     const returnType = options.returnType.toLowerCase();
     switch (returnType) {
         case 'number':
         case 'integer':
             if (length > 15) {
-                throw new Error('Invalid options: number (integer) return type is too small for length of 15+ digits. Please consider using BigInt or String as return type.');
+                throw new Error(
+                    'Invalid options: number (integer) return type is too small for length of 15+ digits. Please consider using BigInt or String as return type.',
+                );
             }
         case 'bigint':
             if ('skipPadding' in options && !options.skipPadding) {
-                throw new Error('Invalid options: skipPadding must be enabled with non-string return types. Please consult the documentation for further information.');
+                throw new Error(
+                    'Invalid options: skipPadding must be enabled with non-string return types. Please consult the documentation for further information.',
+                );
             }
             break;
 
@@ -32,6 +38,8 @@ export const validateReturnType = (length: number, options?: Options) => {
             break;
 
         default:
-            throw new Error(`Invalid return type: Please choose one of string | number | bigint.`);
+            throw new Error(
+                `Invalid return type: Please choose one of string | number | bigint.`,
+            );
     }
 };

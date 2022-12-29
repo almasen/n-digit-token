@@ -23,7 +23,10 @@ const calculateMax = (byteCount: number, length: number): bigint => {
  * @param {Options} [options]
  * @return {bigint} token
  */
-const generateWithoutModuloBias = (length: number, options?: Options): bigint => {
+const generateWithoutModuloBias = (
+    length: number,
+    options?: Options,
+): bigint => {
     const byteSize = calculateByteSize(length, options);
     const max = calculateMax(byteSize, length);
 
@@ -47,7 +50,11 @@ const generateWithoutModuloBias = (length: number, options?: Options): bigint =>
  * @param {Options} [options]
  * @return {string|number|bigint} formatted token
  */
-const handleOptions = (secureBigIntToken: bigint, length: number, options?: Options): string | number | bigint => {
+const handleOptions = (
+    secureBigIntToken: bigint,
+    length: number,
+    options?: Options,
+): string | number | bigint => {
     if (!options) {
         return padTokenIfNecessary(length, secureBigIntToken.toString(10));
     }
@@ -62,7 +69,9 @@ const handleOptions = (secureBigIntToken: bigint, length: number, options?: Opti
 
         default:
             const tokenString = secureBigIntToken.toString(10);
-            return options.skipPadding ? tokenString : padTokenIfNecessary(length, tokenString);
+            return options.skipPadding
+                ? tokenString
+                : padTokenIfNecessary(length, tokenString);
     }
 };
 
@@ -81,7 +90,10 @@ const handleOptions = (secureBigIntToken: bigint, length: number, options?: Opti
  * @param {number} [options.customByteStream] specify custom CSPRNG byte stream function WARNING: Advanced option, use with caution!!
  * @return {string|number|bigint} token (as string by default)
  */
-const generateSecureToken = (length: number, options?: Options): string | number | bigint => {
+const generateSecureToken = (
+    length: number,
+    options?: Options,
+): string | number | bigint => {
     validateLength(length);
     validateOptions(length, options);
     const secureBigIntToken = generateWithoutModuloBias(length, options);

@@ -11,7 +11,9 @@ test('token generation algorithm warns about scarce memory but executes without 
     expect(console.warn.mock.calls.length).toBe(0);
     const token = generateSecureToken(6, { customMemory: 64 });
     expect(console.warn.mock.calls.length).toBe(1);
-    expect(console.warn.mock.calls[0][0]).toBe('Warning - scarce memory: Allocated memory is less than ideal for the algorithm, this *may* result in decreased performance.');
+    expect(console.warn.mock.calls[0][0]).toBe(
+        'Warning - scarce memory: Allocated memory is less than ideal for the algorithm, this *may* result in decreased performance.',
+    );
     expect(token.length).toStrictEqual(6);
 });
 
@@ -19,7 +21,9 @@ test('token generation algorithm warns about too much memory but executes withou
     expect(console.warn.mock.calls.length).toBe(0);
     const token = generateSecureToken(6, { customMemory: 1024 });
     expect(console.warn.mock.calls.length).toBe(1);
-    expect(console.warn.mock.calls[0][0]).toBe('Warning - overcompensated memory: Allocated memory is more than ideal for the algorithm, this *may* result in decreased performance.');
+    expect(console.warn.mock.calls[0][0]).toBe(
+        'Warning - overcompensated memory: Allocated memory is more than ideal for the algorithm, this *may* result in decreased performance.',
+    );
     expect(token.length).toStrictEqual(6);
 });
 

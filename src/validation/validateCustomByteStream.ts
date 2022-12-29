@@ -12,6 +12,8 @@ export const validateCustomByteStream = (options?: Options) => {
         return;
     }
     if (typeof options.customByteStream !== 'function') {
-        throw new Error('Invalid options: customByteStream must be a function that returns a byte Buffer.');
+        throw new Error(
+            'Invalid options: customByteStream must be a function that returns a byte Buffer.',
+        );
     }
 };
