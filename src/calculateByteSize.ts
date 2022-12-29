@@ -1,5 +1,5 @@
 import { DEFAULT_BYTE_SIZE } from './constants';
-import { Options } from './types';
+import type { Options } from './types';
 
 /**
  * Calculate total size of byte stream to be generated.

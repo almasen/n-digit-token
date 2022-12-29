@@ -56,11 +56,6 @@ const handleOptions = (secureBigIntToken: bigint, length: number, options?: Opti
         return padTokenIfNecessary(length, secureBigIntToken.toString(10));
     }
 
-    if (!options.returnType) {
-        const tokenString = secureBigIntToken.toString(10);
-        return options.skipPadding ? tokenString : padTokenIfNecessary(length, tokenString);
-    }
-
     switch (options.returnType) {
         case BIGINT:
             return secureBigIntToken;
