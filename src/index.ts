@@ -3,7 +3,8 @@
  */
 
 import { randomBytes } from 'crypto';
-import { DEFAULT_BYTE_SIZE, Options } from './types';
+import { DEFAULT_BYTE_SIZE } from './constants';
+import type { Options } from './types';
 import { validateLength, validateOptions } from './validator';
 
 /**
