@@ -1,3 +1,4 @@
+import { BIGINT, INTEGER, NUMBER, STRING } from '../constants';
 import { Options } from '../types';
 
 /**
@@ -17,16 +18,16 @@ export const validateReturnType = (length: number, options?: Options) => {
             "Invalid options: returnType must be specified in a string. For example 'number' or 'string'.",
         );
     }
-    const returnType = options.returnType.toLowerCase();
-    switch (returnType) {
-        case 'number':
-        case 'integer':
+
+    switch (options.returnType) {
+        case NUMBER:
+        case INTEGER:
             if (length > 15) {
                 throw new Error(
                     'Invalid options: number (integer) return type is too small for length of 15+ digits. Please consider using BigInt or String as return type.',
                 );
             }
-        case 'bigint':
+        case BIGINT:
             if ('skipPadding' in options && !options.skipPadding) {
                 throw new Error(
                     'Invalid options: skipPadding must be enabled with non-string return types. Please consult the documentation for further information.',
@@ -34,7 +35,7 @@ export const validateReturnType = (length: number, options?: Options) => {
             }
             break;
 
-        case 'string':
+        case STRING:
             break;
 
         default:
