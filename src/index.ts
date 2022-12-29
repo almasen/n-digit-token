@@ -2,19 +2,12 @@
  * @module n-digit-token
  */
 
-import { randomBytes } from 'crypto';
-import { BIGINT, DEFAULT_BYTE_SIZE, INTEGER, NUMBER } from './constants';
+import { calculateByteSize } from './calculateByteSize';
+import { BIGINT, INTEGER, NUMBER } from './constants';
+import { generateSecureBytes } from './generateSecureBytes';
+import { padTokenIfNecessary } from './padTokenIfNecessary';
 import type { Options } from './types';
 import { validateLength, validateOptions } from './validator';
-
-/**
- * Generate secure random bytes of given length.
- * @param {number} length
- * @return {string} bytes in hex
- */
-const generateSecureBytes = (length: number, options?: Options): string => {
-    return options && options.customByteStream ? options.customByteStream(length).toString('hex') : randomBytes(length).toString('hex');
-};
 
 /**
  * Calculate largest possible value that avoids modulo bias.
@@ -25,26 +18,6 @@ const generateSecureBytes = (length: number, options?: Options): string => {
 const calculateMax = (byteCount: number, length: number): bigint => {
     const maxDecimal = BigInt(2n ** (BigInt(byteCount) * 8n) - 1n);
     return maxDecimal - (maxDecimal % 10n ** BigInt(length)) - 1n;
-};
-
-/**
- * Calculate total size of byte stream to be generated.
- * @param {number} length
- * @param {Options} [options]
- * @return {number} required number of bytes
- */
-const calculateByteSize = (length: number, options?: Options): number => {
-    return options && options.customMemory ? options.customMemory : DEFAULT_BYTE_SIZE + length;
-};
-
-/**
- * Left-pad token with zeros if necessary.
- * @param {number} length
- * @param {string} token
- * @return {string} padded token
- */
-const padTokenIfNecessary = (length: number, token: string): string => {
-    return token.length === length ? token : token.padStart(length, '0');
 };
 
 /**
