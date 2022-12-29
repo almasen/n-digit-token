@@ -6,11 +6,9 @@ type ReturnType =
     | typeof INTEGER
     | typeof STRING;
 
-type Options = {
+export type Options = {
     returnType?: ReturnType;
     skipPadding?: boolean;
     customMemory?: number;
     customByteStream?: (length: number) => Buffer;
 };
-
-export { Options };

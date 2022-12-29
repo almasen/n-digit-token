@@ -1,14 +1,12 @@
-const DEFAULT_BYTE_SIZE = 64;
+export const DEFAULT_BYTE_SIZE = 64;
 
 /** 'bigint' return type */
-const BIGINT = 'bigint';
+export const BIGINT = 'bigint';
 
 /** 'number' return type */
-const NUMBER = 'number';
-/** legacy 'integer' return type, equivalent to 'number' */
-const INTEGER = 'integer';
+export const NUMBER = 'number';
+/** Legacy 'integer' return type, equivalent to 'number' */
+export const INTEGER = 'integer';
 
 /** 'string' return type */
-const STRING = 'string';
-
-export { DEFAULT_BYTE_SIZE, BIGINT, NUMBER, INTEGER, STRING };
+export const STRING = 'string';
