@@ -88,7 +88,7 @@ const handleOptions = (secureBigIntToken: bigint, length: number, options?: Opti
         return options.skipPadding ? tokenString : padTokenIfNecessary(length, tokenString);
     }
 
-    switch (options.returnType.toLowerCase()) {
+    switch (options.returnType) {
         case 'bigint':
             return secureBigIntToken;
 
