@@ -1,5 +1,5 @@
 import { DEFAULT_BYTE_SIZE } from './constants';
-import type { Options } from './types';
+import { Options } from './types';
 
 /**
  * Calculate total size of byte stream to be generated.
@@ -7,5 +7,4 @@ import type { Options } from './types';
  * @param {Options} [options]
  * @return {number} required number of bytes
  */
-export const calculateByteSize = (length: number, options?: Options): number => 
-    options && options.customMemory ? options.customMemory : DEFAULT_BYTE_SIZE + length;
+export const calculateByteSize = (length: number, options?: Options): number => (options && options.customMemory ? options.customMemory : DEFAULT_BYTE_SIZE + length);

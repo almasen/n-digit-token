@@ -1,5 +1,5 @@
 import { DEFAULT_BYTE_SIZE } from '../constants';
-import type { Options } from '../types';
+import { Options } from '../types';
 
 /**
  * Validates options.customMemory.

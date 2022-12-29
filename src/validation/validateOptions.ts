@@ -1,8 +1,8 @@
-import type { Options } from '../types';
-import { validateCustomByteStream } from "./validateCustomByteStream";
-import { validateCustomMemory } from "./validateCustomMemory";
-import { validateReturnType } from "./validateReturnType";
-import { validateSkipPadding } from "./validateSkipPadding";
+import { Options } from '../types';
+import { validateCustomByteStream } from './validateCustomByteStream';
+import { validateCustomMemory } from './validateCustomMemory';
+import { validateReturnType } from './validateReturnType';
+import { validateSkipPadding } from './validateSkipPadding';
 
 /**
  * Validates input options.

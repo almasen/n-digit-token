@@ -38,7 +38,7 @@
         "build": "tsc",
         "test": "jest",
         "lint": "tslint -p tsconfig.json --fix",
-        "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\""
+        "format": "prettier --write \"src/**/*.ts\""
     },
     "dependencies": {},
     "devDependencies": {

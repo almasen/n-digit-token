@@ -2,7 +2,7 @@ import { calculateByteSize } from './calculateByteSize';
 import { BIGINT, INTEGER, NUMBER } from './constants';
 import { generateSecureBytes } from './generateSecureBytes';
 import { padTokenIfNecessary } from './padTokenIfNecessary';
-import type { Options } from './types';
+import { Options } from './types';
 import { validateLength, validateOptions } from './validation';
 
 /**
