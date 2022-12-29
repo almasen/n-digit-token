@@ -3,7 +3,7 @@
  */
 
 import { randomBytes } from 'crypto';
-import { DEFAULT_BYTE_SIZE } from './constants';
+import { BIGINT, DEFAULT_BYTE_SIZE, INTEGER, NUMBER } from './constants';
 import type { Options } from './types';
 import { validateLength, validateOptions } from './validator';
 
@@ -89,11 +89,11 @@ const handleOptions = (secureBigIntToken: bigint, length: number, options?: Opti
     }
 
     switch (options.returnType) {
-        case 'bigint':
+        case BIGINT:
             return secureBigIntToken;
 
-        case 'number':
-        case 'integer':
+        case NUMBER:
+        case INTEGER:
             return Number(secureBigIntToken);
 
         default:
