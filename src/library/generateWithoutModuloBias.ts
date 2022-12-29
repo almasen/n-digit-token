@@ -15,7 +15,7 @@ export const generateWithoutModuloBias = (
     options?: Options,
 ): bigint => {
     const byteSize = calculateByteSize(length, options);
-    const max = calculateMax(byteSize, length);
+    const max = calculateMax({ byteSize, length });
 
     let done = false;
     let secureInt = 0n;

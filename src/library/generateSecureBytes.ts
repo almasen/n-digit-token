@@ -1,6 +1,11 @@
 import { randomBytes } from 'crypto';
 import { Options } from './types';
 
+/**
+ * Generate secure random bytes of given length.
+ * @param {number} length
+ * @return {Buffer} bytes in buffer
+ */
 const generateSecureBytesBuffer = (length: number, options?: Options): Buffer =>
     options?.customByteStream
         ? options.customByteStream(length)

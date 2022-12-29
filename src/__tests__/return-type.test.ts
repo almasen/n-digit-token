@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { generateSecureToken } from '../index';
+import { generateSecureToken } from '../generateSecureToken';
 
 test('setting number as return type returns a number as expected', () => {
     const token = generateSecureToken(6, { returnType: 'number' });

@@ -1,7 +1,10 @@
-import { generateWithoutModuloBias } from './generateWithoutModuloBias';
-import { handleOptions } from './handleOptions';
-import { Options } from './types';
-import { validateLength, validateOptions } from './validation';
+import {
+    validateLength,
+    validateOptions,
+    generateWithoutModuloBias,
+    Options,
+    handleOptions,
+} from './library';
 
 /**
  * Generate a cryptographically secure pseudo random token of given number of digits.

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { generateSecureToken } from '../index';
+import { generateSecureToken } from '../generateSecureToken';
 
 test('token generation algorithm returns a string by default', () => {
     for (let length = 1; length <= 32; length++) {

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { generateSecureToken } from '../index';
+import { generateSecureToken } from '../generateSecureToken';
 
 jest.spyOn(console, 'warn').mockImplementation();
 
