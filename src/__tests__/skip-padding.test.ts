@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { gen, generateSecureToken } from '../index';
+import { gen } from '../index';
 
 test('setting skipPadding to true may result in varied string token lengths if length is set to >1', () => {
     const desiredTokenLength = 6;

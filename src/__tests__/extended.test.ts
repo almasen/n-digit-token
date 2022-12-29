@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { gen, generateSecureToken } from '../index';
+import { gen } from '../index';
 
 test('token generation algorithm always returns secure random token of digits of expected length', () => {
     for (let length = 1; length <= 1000; length++) {

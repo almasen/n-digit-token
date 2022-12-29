@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { gen, generateSecureToken } from '../index';
+import { generateSecureToken } from '../index';
 import { randomBytes } from 'crypto';
 
 /* eslint-disable max-len */

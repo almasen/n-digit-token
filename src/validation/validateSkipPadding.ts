@@ -9,7 +9,7 @@ import { Options } from '../types';
  */
 
 export const validateSkipPadding = (length: number, options?: Options) => {
-    if (!options || !options.skipPadding) {
+    if (!options || options.skipPadding === undefined) {
         return;
     }
     if (typeof options.skipPadding !== 'boolean') {

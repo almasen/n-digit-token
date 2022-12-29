@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { gen, generateSecureToken } from '../index';
+import { generateSecureToken } from '../index';
 
 test('simple token generation works', () => {
     const token = generateSecureToken(6);
