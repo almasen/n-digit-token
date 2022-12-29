@@ -7,7 +7,7 @@ import { BIGINT, INTEGER, NUMBER } from './constants';
 import { generateSecureBytes } from './generateSecureBytes';
 import { padTokenIfNecessary } from './padTokenIfNecessary';
 import type { Options } from './types';
-import { validateLength, validateOptions } from './validator';
+import { validateLength, validateOptions } from './validation';
 
 /**
  * Calculate largest possible value that avoids modulo bias.
