@@ -1,7 +1,3 @@
-/**
- * @module n-digit-token
- */
-
 import { calculateByteSize } from './calculateByteSize';
 import { BIGINT, INTEGER, NUMBER } from './constants';
 import { generateSecureBytes } from './generateSecureBytes';

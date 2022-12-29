@@ -1,7 +1,3 @@
-/**
- * @module constants
- */
-
 const DEFAULT_BYTE_SIZE = 64;
 
 /** 'bigint' return type */
