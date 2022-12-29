@@ -8,11 +8,11 @@ import type { Options } from './types';
 /**
  * Validates input length.
  * Throws an error if length is not a positive integer.
- * @param {any} input
+ * @param {number} length
  * @throws {error} if not called with a positive integer
  */
-const validateLength = (input: any) => {
-    if (!Number.isInteger(input) || input <= 0) {
+const validateLength = (length: number) => {
+    if (!Number.isInteger(length) || length <= 0) {
         throw new Error('Invalid length: must be called with a positive integer.');
     }
 };
@@ -100,7 +100,7 @@ const validateReturnType = (length: number, options?: Options) => {
  * @throws {error} if called with invalid options
  */
 const validateCustomMemory = (length: number, options?: Options) => {
-    if (!options || options.customMemory === undefined) {
+    if (!options || !options.customMemory) {
         return;
     }
     // check order has to follow options > 0 > undef/null
