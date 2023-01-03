@@ -1,6 +1,6 @@
 import { BIGINT, INTEGER, NUMBER } from './constants';
 import { padTokenIfNecessary } from './padTokenIfNecessary';
-import { Options } from './types';
+import type { Options } from './types';
 
 /**
  * Handle token return type and format based on user options.

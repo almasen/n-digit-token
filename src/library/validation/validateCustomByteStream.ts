@@ -1,4 +1,4 @@
-import { Options } from '../types';
+import type { Options } from '../types';
 
 /**
  * Validates type of options.customByteStream.

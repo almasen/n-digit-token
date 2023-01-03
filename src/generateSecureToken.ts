@@ -5,7 +5,7 @@ import {
     Options,
     handleOptions,
 } from './library';
-import { TokenGenerator } from './signatures';
+import type { TokenGenerator } from './signatures';
 
 export const generateSecureToken = ((length: number, options?: Options) => {
     validateLength(length);

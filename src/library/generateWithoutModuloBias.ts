@@ -1,7 +1,7 @@
 import { calculateByteSize } from './calculateByteSize';
 import { calculateMax } from './calculateMax';
 import { generateSecureBytes } from './generateSecureBytes';
-import { Options } from './types';
+import type { Options } from './types';
 
 /**
  * Generates a cryptographically secure pseudo random token string of given length.

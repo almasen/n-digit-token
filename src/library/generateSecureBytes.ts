@@ -1,5 +1,5 @@
 import { randomBytes } from 'crypto';
-import { Options } from './types';
+import type { Options } from './types';
 
 /**
  * Generate secure random bytes of given length.

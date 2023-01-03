@@ -1,4 +1,4 @@
-import { Options } from '../types';
+import type { Options } from '../types';
 import { validateCustomByteStream } from './validateCustomByteStream';
 import { validateCustomMemory } from './validateCustomMemory';
 import { validateReturnType } from './validateReturnType';

@@ -1,5 +1,5 @@
 import { BIGINT, INTEGER, NUMBER, STRING } from '../constants';
-import { Options } from '../types';
+import type { Options } from '../types';
 
 /**
  * Validates options.returnType.
