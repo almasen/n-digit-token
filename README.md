@@ -27,24 +27,28 @@
 
 `gen(n)` where `n` is the desired length/number of digits.
 
-``` javascript
-const { gen } = require('n-digit-token');
+``` typescript
+import { gen } from 'n-digit-token';
 
-const token = gen(6);
-// => '681485'
+const token: string = gen(6);
+// => '076471'
 ```
 
 ## Summary
 
-This tiny module generates an n-digit cryptographically strong pseudo-random token in constant time and avoids modulo bias.
+This tiny module generates an n-digit cryptographically strong pseudo-random token in constant time whilst avoiding modulo bias and with 0 dependencies.
 
 ### Modulo bias
 
-The `2.x` version of the `n-digit-token` algorithm __does avoid__ [modulo bias](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Modulo_bias) therefore providing high precision even for larger tokens.
+The `^2.x` version of the `n-digit-token` algorithm __does avoid__ [modulo bias](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Modulo_bias) therefore providing high precision even for larger tokens.
 
 ### Performance
 
-This algorithm runs in `O(1)` constant time for up to a `100` digit long token sizes making it suitable for cryptographic applications _(and I don't know why you would ever need longer tokens)_.
+This algorithm runs in `O(1)` constant time for up to a `100` digit long token sizes making it suitable for cryptographic applications _(and I'm not sure why you would need longer tokens)_.
+
+### No dependencies
+
+This package has `0 dependencies` :tada:
 
 ### Comparisons
 
@@ -54,41 +58,66 @@ This algorithm runs in `O(1)` constant time for up to a `100` digit long token s
 | crypto.randomInt 	| :x:                       	| :heavy_check_mark:  	|
 | n-digit-token    	| :heavy_check_mark:        	| :heavy_check_mark:  	|
 
-As of `n-digit-token@2.x`
+For more details on how this is achieved, please refer to the the [Details](#details) section.
 
 ## Detailed usage
 
 Just give the desired token length to get your random n-digit token.
-
-``` javascript
-const { gen, generateSecureToken } = require('n-digit-token');
-
-const token = gen(6);
-// => '681485'
-
-const anotherAuthToken = generateSecureToken(6);
-// => '090188'
-
-const anEightDigitToken = gen(8);
-// => '25280789'
-```
-
-`gen()` is just a shorthand for `generateSecureToken()` use whichever you prefer.
-
-### Typescript
-
-Or in `typescript`:
 
 ``` typescript
 import { gen } from 'n-digit-token';
 
 const token: string = gen(6);
 // => '681485'
+
+const anotherAuthToken: string = gen(6);
+// => '090188'
+
+const anEightDigitToken: string = gen(8);
+// => '25280789'
+```
+
+### JavaScript
+
+Or with plain old `JS`:
+
+``` javascript
+const { gen } = require('n-digit-token');
+
+const token = gen(6);
+// => '029947'
+```
+
+### Aliases
+
+`gen()` and `randomDigits()` are just equivalent aliases of `generateSecureToken()` use whichever you prefer:
+
+``` typescript
+import { gen, generateSecureToken, randomDigits } from 'n-digit-token';
+
+const alias0: string = generateSecureToken(6);
+const alias1: string = gen(6);
+const alias2: string = randomDigits(6);
+// => '801448'
 ```
 
 ### Advanced options
 
-There are also some [advanced options](#options) though most users should not need these.
+There are also a few [advanced options](#options) for customising some parameters of the algorithm and the output, though most users should not need these.
+
+## Compatibility
+
+`n-digit-token` supports `node >= 10.4.0`. There are no additional compatibility requirements.
+
+This package is solely dependent on the built-in `nodeJS/crypto` module.
+
+### Running in browser
+
+Please note that `n-digit-token` is intended to be used server-side and therefore browser support is not actively maintained.
+
+However, as of `v2.0.2` you can use `n-digit-token` with `crypto-browserify` or other custom byte streams.
+
+Please refer to the [customByteStream](#optionscustombytestream) option for more details.
 
 # Details
 
@@ -380,24 +409,6 @@ Please note that this is option has only been tested with `crypto-browserify` an
 
 This setting has been deprecated as of `n-digit-token@v2.x` since the algorithm avoids modulo bias by default. Therefore, the use of this option is now unnecessary and ignored by the application.
 
-## Compatibility
-
-`n-digit-token` supports `node >= 10.4.0`. There are no additional compatibility requirements.
-
-### Dependencies
-
-:tada: `0 dependencies` :tada:
-
-This package is solely dependent on the built-in `nodeJS/crypto` module.
-
-### Running in browser
-
-Please note that `n-digit-token` is intended to be used server-side and therefore browser support is not actively maintained.
-
-However, as of `v2.0.2` you can use `n-digit-token` with `crypto-browserify` or other custom byte streams.
-
-Please refer to the [customByteStream](#optionscustombytestream) option for more details.
-
 ## Test
 
 Install the `devDependencies` and run `npm test` for the module tests.
@@ -416,7 +427,7 @@ If you like this project, please consider supporting `n-digit-token` with a [one
 
 ### Star this project
 
-If you can't support `n-digit-token` financially, please consider giving the project a [GitHub:star:](https://github.com/almasen/n-digit-token) to help its discoverability. Thank you!
+If you can't support `n-digit-token` financially, but you've found it useful, please consider giving the project a [GitHub:star:](https://github.com/almasen/n-digit-token) to help its discoverability. Thank you!
 
 ### Contributing
 

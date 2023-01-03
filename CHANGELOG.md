@@ -16,6 +16,7 @@
 ### Changed
 
 * Exported function signatures to add support for conditional, more advanced type checking and documentation
+* Updated default examples in docs to TypeScript
 
 ### Fixed
 
