@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { gen, generateSecureToken, randomDigits } from '../index';
 
 test('gen and randomDigits shorthands call generateSecureToken function as expected', () => {

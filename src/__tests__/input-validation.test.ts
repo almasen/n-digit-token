@@ -1,11 +1,9 @@
-// @ts-nocheck
 import { generateSecureToken } from '../generateSecureToken';
 import { randomBytes } from 'crypto';
 
-/* eslint-disable max-len */
-
 test('token generation algorithm throws appropriate error on invalid length', () => {
     expect(() => {
+        // @ts-expect-error
         generateSecureToken();
     }).toThrow(
         new Error('Invalid length: must be called with a positive integer.'),
@@ -23,12 +21,14 @@ test('token generation algorithm throws appropriate error on invalid length', ()
     );
 
     expect(() => {
+        // @ts-expect-error
         generateSecureToken('abc');
     }).toThrow(
         new Error('Invalid length: must be called with a positive integer.'),
     );
 
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(6n);
     }).toThrow(
         new Error('Invalid length: must be called with a positive integer.'),
@@ -61,6 +61,7 @@ test('token generation algorithm verifies that returnType is a string if used.',
     generateSecureToken(6);
     generateSecureToken(6, { returnType: 'bigint' });
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(6, { returnType: 2n });
     }).toThrow(
         new Error(
@@ -68,6 +69,7 @@ test('token generation algorithm verifies that returnType is a string if used.',
         ),
     );
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(6, { returnType: 1 });
     }).toThrow(
         new Error(
@@ -75,6 +77,7 @@ test('token generation algorithm verifies that returnType is a string if used.',
         ),
     );
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(6, { returnType: true });
     }).toThrow(
         new Error(
@@ -87,15 +90,18 @@ test('token generation algorithm verifies that skipPadding is a boolean if used.
     generateSecureToken(6);
     generateSecureToken(6, { skipPadding: false });
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(6, { skipPadding: 'invalid' });
     }).toThrow(new Error('Invalid options: skipPadding must be a boolean.'));
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(6, { skipPadding: 12 });
     }).toThrow(new Error('Invalid options: skipPadding must be a boolean.'));
 });
 
 test('token generation algorithm throws an appropriate error on unknown return types', () => {
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(6, { returnType: 'unknown' });
     }).toThrow(
         new Error(
@@ -115,13 +121,25 @@ test('setting skipPadding to true is only accepted for token lengths >1', () => 
 });
 
 test('token generation algorithm rejects skipPadding=false in combination with a numerical return type.', () => {
-    const token = generateSecureToken(6, {
+    const stringToken = generateSecureToken(6, {
+        returnType: 'string',
+        skipPadding: false,
+    });
+    expect(typeof stringToken).toStrictEqual('string');
+    const paddedStringToken = generateSecureToken(6, {
+        returnType: 'string',
+        skipPadding: true,
+    });
+    expect(typeof paddedStringToken).toStrictEqual('string');
+
+    const numberToken = generateSecureToken(6, {
         returnType: 'number',
         skipPadding: true,
     });
-    expect(typeof token).toStrictEqual('number');
+    expect(typeof numberToken).toStrictEqual('number');
 
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(6, { returnType: 'number', skipPadding: false });
     }).toThrow(
         new Error(
@@ -130,6 +148,7 @@ test('token generation algorithm rejects skipPadding=false in combination with a
     );
 
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(6, { returnType: 'integer', skipPadding: false });
     }).toThrow(
         new Error(
@@ -138,6 +157,7 @@ test('token generation algorithm rejects skipPadding=false in combination with a
     );
 
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(6, { returnType: 'bigint', skipPadding: false });
     }).toThrow(
         new Error(
@@ -148,6 +168,7 @@ test('token generation algorithm rejects skipPadding=false in combination with a
 
 test('token generation algorithm validates custom memory option correctly', () => {
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(16, { customMemory: '8' });
     }).toThrow(
         new Error('Invalid options: customMemory must be a positive integer.'),
@@ -165,9 +186,11 @@ test('token generation algorithm validates custom memory option correctly', () =
 
 test('token generation algorithm validates custom byte stream option correctly', () => {
     const noParamsFunction = (): Buffer => {
+        // @ts-expect-error
         return Buffer;
     };
     const invalidParamsFunction = (length: string): Buffer => {
+        // @ts-expect-error
         return Buffer;
     };
     const invalidVoidFunction = (length: number): void => {};
@@ -176,6 +199,7 @@ test('token generation algorithm validates custom byte stream option correctly',
     };
 
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(16, { customByteStream: 'a' });
     }).toThrow(
         new Error(
@@ -184,6 +208,7 @@ test('token generation algorithm validates custom byte stream option correctly',
     );
 
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(16, { customByteStream: true });
     }).toThrow(
         new Error(
@@ -196,14 +221,17 @@ test('token generation algorithm validates custom byte stream option correctly',
     }).toThrow();
 
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(16, { customByteStream: invalidParamsFunction });
     }).toThrow();
 
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(16, { customByteStream: invalidVoidFunction });
     }).toThrow();
 
     expect(() => {
+        // @ts-expect-error
         generateSecureToken(16, { customByteStream: invalidReturnFunction });
     }).toThrow();
 

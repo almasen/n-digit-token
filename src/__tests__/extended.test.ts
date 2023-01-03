@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { generateSecureToken } from '../generateSecureToken';
 
 test('token generation algorithm always returns secure random token of digits of expected length', () => {

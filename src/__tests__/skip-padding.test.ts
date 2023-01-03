@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { generateSecureToken } from '../generateSecureToken';
 
 test('setting skipPadding to true may result in varied string token lengths if length is set to >1', () => {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { generateSecureToken } from '../generateSecureToken';
 
 test('token generation algorithm returns a string by default', () => {

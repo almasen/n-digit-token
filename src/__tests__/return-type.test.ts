@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { generateSecureToken } from '../generateSecureToken';
 
 test('setting number as return type returns a number as expected', () => {
