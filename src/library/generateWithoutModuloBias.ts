@@ -17,15 +17,13 @@ export const generateWithoutModuloBias = (
     const byteSize = calculateByteSize(length, options);
     const max = calculateMax({ byteSize, length });
 
-    let done = false;
     let secureInt = 0n;
 
-    while (!done) {
+    do {
         secureInt = 0n; // minimize memory usage
         const secureBytes = generateSecureBytes(byteSize, options);
         secureInt = BigInt('0x' + secureBytes);
-        done = secureInt <= max;
-    }
+    } while (secureInt > max);
 
     return secureInt % BigInt(10n ** BigInt(length));
 };
