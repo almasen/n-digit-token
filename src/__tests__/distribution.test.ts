@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { gen, generateSecureToken } from '../index';
+import { generateSecureToken } from '../generateSecureToken';
 
 jest.spyOn(console, 'warn').mockImplementation();
 
@@ -11,7 +10,7 @@ test('by default token generation algorithm returns values within expected distr
     const total = 100000;
     const map = new Map();
     for (let i = 0; i < total; i++) {
-        const token = gen(1);
+        const token = generateSecureToken(1);
         if (map.has(token)) {
             map.set(token, map.get(token) + 1);
         } else {
@@ -29,7 +28,7 @@ test('token generation algorithm provided less than ideal memory still returns v
     const total = 100000;
     const map = new Map();
     for (let i = 0; i < total; i++) {
-        const token = gen(1, { customMemory: 1 });
+        const token = generateSecureToken(1, { customMemory: 1 });
         if (map.has(token)) {
             map.set(token, map.get(token) + 1);
         } else {

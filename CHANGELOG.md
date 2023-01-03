@@ -1,5 +1,27 @@
 ## Change log
 
+## 2.2.0 - 2023-01-03
+
+### Added
+
+* More robust type system with support for advanced options validation
+* Separate function signatures and JSDocs for different token return types
+* Dedicated test ensuring modulo-bias is avoided
+* New `randomDigits` alias following `node/crypto` naming convention
+* Refactor whole package to dedicated, loosely coupled modules
+* Further static tests to ensure type compatibility and safety
+* Upgrade development dependencies
+* Minor fixes and improvements
+
+### Changed
+
+* Exported function signatures to add support for conditional, more advanced type checking and documentation
+* Updated default examples in docs to TypeScript
+
+### Fixed
+
+* Default return type not being recognised as string
+
 ## 2.1.1 - 2022-04-03
 
 ### Added
