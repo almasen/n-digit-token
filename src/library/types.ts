@@ -12,3 +12,21 @@ export type Options = {
     customMemory?: number;
     customByteStream?: (length: number) => Buffer;
 };
+
+type OnlyTrueSkipPadding = {
+    skipPadding?: true;
+};
+
+export type OptionsWithNumberReturnType = Options &
+    OnlyTrueSkipPadding & {
+        returnType: typeof NUMBER | typeof INTEGER;
+    };
+
+export type OptionsWithBigIntReturnType = Options &
+    OnlyTrueSkipPadding & {
+        returnType: typeof BIGINT;
+    };
+
+export type OptionsWithDefaultReturnType = Options & {
+    returnType?: typeof STRING;
+};
