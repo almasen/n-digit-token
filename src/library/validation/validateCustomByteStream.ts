@@ -8,12 +8,12 @@ import type { Options } from '../types';
  */
 
 export const validateCustomByteStream = (options?: Options): void => {
-    if (!options || !options.customByteStream) {
-        return;
-    }
-    if (typeof options.customByteStream !== 'function') {
-        throw new Error(
-            'Invalid options: customByteStream must be a function that returns a byte Buffer.',
-        );
-    }
+  if (!options || !options.customByteStream) {
+    return;
+  }
+  if (typeof options.customByteStream !== 'function') {
+    throw new Error(
+      'Invalid options: customByteStream must be a function that returns a byte Buffer.',
+    );
+  }
 };
