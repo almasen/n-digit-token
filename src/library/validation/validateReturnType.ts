@@ -9,7 +9,7 @@ import type { Options } from '../types';
  * @throw {error} if called with invalid options
  */
 
-export const validateReturnType = (length: number, options?: Options) => {
+export const validateReturnType = (length: number, options?: Options): void => {
     if (!options || !options.returnType) {
         return;
     }

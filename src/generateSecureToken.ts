@@ -7,7 +7,7 @@ import {
 } from './library';
 import type { TokenGenerator } from './signatures';
 
-export const generateSecureToken = ((length: number, options?: Options) => {
+export const generateSecureToken = ((length: number, options?: Options): string | number | bigint => {
     validateLength(length);
     validateOptions(length, options);
     const secureBigIntToken = generateWithoutModuloBias(length, options);

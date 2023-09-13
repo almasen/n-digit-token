@@ -4,7 +4,7 @@
  * @param {number} length
  * @throws {error} if not called with a positive integer
  */
-export const validateLength = (length: number) => {
+export const validateLength = (length: number): void => {
     if (!Number.isInteger(length) || length <= 0) {
         throw new Error(
             'Invalid length: must be called with a positive integer.',

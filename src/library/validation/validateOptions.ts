@@ -11,7 +11,7 @@ import { validateSkipPadding } from './validateSkipPadding';
  * @param {Options} [options]
  * @throws {error} if called with invalid options
  */
-export const validateOptions = (length: number, options?: Options) => {
+export const validateOptions = (length: number, options?: Options): void => {
     if (!options) {
         return;
     }

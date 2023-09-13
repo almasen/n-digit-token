@@ -8,7 +8,7 @@ import type { Options } from '../types';
  * @throws {error} if called with invalid options
  */
 
-export const validateSkipPadding = (length: number, options?: Options) => {
+export const validateSkipPadding = (length: number, options?: Options): void => {
     if (!options || options.skipPadding === undefined) {
         return;
     }

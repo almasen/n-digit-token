@@ -7,7 +7,7 @@ import type { Options } from '../types';
  * @throws {error} if called with invalid options
  */
 
-export const validateCustomByteStream = (options?: Options) => {
+export const validateCustomByteStream = (options?: Options): void => {
     if (!options || !options.customByteStream) {
         return;
     }

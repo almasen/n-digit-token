@@ -9,7 +9,7 @@ import type { Options } from '../types';
  * @throws {error} if called with invalid options
  */
 
-export const validateCustomMemory = (length: number, options?: Options) => {
+export const validateCustomMemory = (length: number, options?: Options): void => {
     if (!options || options.customMemory === undefined) {
         return;
     }
