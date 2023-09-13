@@ -1,6 +1,6 @@
 {
     "name": "n-digit-token",
-    "version": "2.2.0",
+    "version": "2.2.1",
     "description": "Cryptographically secure pseudo-random token of n digits",
     "keywords": [
         "token",
