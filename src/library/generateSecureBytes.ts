@@ -7,9 +7,9 @@ import type { Options } from './types';
  * @return {Buffer} bytes in buffer
  */
 const generateSecureBytesBuffer = (length: number, options?: Options): Buffer =>
-    options?.customByteStream
-        ? options.customByteStream(length)
-        : randomBytes(length);
+  options?.customByteStream
+    ? options.customByteStream(length)
+    : randomBytes(length);
 
 /**
  * Generate secure random bytes of given length.
@@ -17,6 +17,6 @@ const generateSecureBytesBuffer = (length: number, options?: Options): Buffer =>
  * @return {string} bytes in hex
  */
 export const generateSecureBytes = (
-    length: number,
-    options?: Options,
+  length: number,
+  options?: Options,
 ): string => generateSecureBytesBuffer(length, options).toString('hex');

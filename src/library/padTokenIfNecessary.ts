@@ -5,4 +5,4 @@
  * @return {string} padded token
  */
 export const padTokenIfNecessary = (length: number, token: string): string =>
-    token.length === length ? token : token.padStart(length, '0');
+  token.length === length ? token : token.padStart(length, '0');

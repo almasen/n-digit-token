@@ -1,5 +1,13 @@
 ## Change log
 
+## 2.2.1 - 2023-09-13
+
+### Added
+
+* Upgrade development dependencies
+* Refactor add minor missing function return types
+* Refactor style lint rule to use standard 2 indent width
+
 ## 2.2.0 - 2023-01-03
 
 ### Added

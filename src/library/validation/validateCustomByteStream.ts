@@ -7,13 +7,13 @@ import type { Options } from '../types';
  * @throws {error} if called with invalid options
  */
 
-export const validateCustomByteStream = (options?: Options) => {
-    if (!options || !options.customByteStream) {
-        return;
-    }
-    if (typeof options.customByteStream !== 'function') {
-        throw new Error(
-            'Invalid options: customByteStream must be a function that returns a byte Buffer.',
-        );
-    }
+export const validateCustomByteStream = (options?: Options): void => {
+  if (!options || !options.customByteStream) {
+    return;
+  }
+  if (typeof options.customByteStream !== 'function') {
+    throw new Error(
+      'Invalid options: customByteStream must be a function that returns a byte Buffer.',
+    );
+  }
 };

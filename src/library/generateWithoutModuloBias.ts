@@ -11,19 +11,19 @@ import type { Options } from './types';
  * @return {bigint} token
  */
 export const generateWithoutModuloBias = (
-    length: number,
-    options?: Options,
+  length: number,
+  options?: Options,
 ): bigint => {
-    const byteSize = calculateByteSize(length, options);
-    const max = calculateMax({ byteSize, length });
+  const byteSize = calculateByteSize(length, options);
+  const max = calculateMax({ byteSize, length });
 
-    let secureInt = 0n;
+  let secureInt = 0n;
 
-    do {
-        secureInt = 0n; // minimize memory usage
-        const secureBytes = generateSecureBytes(byteSize, options);
-        secureInt = BigInt('0x' + secureBytes);
-    } while (secureInt > max);
+  do {
+    secureInt = 0n; // minimize memory usage
+    const secureBytes = generateSecureBytes(byteSize, options);
+    secureInt = BigInt('0x' + secureBytes);
+  } while (secureInt > max);
 
-    return secureInt % BigInt(10n ** BigInt(length));
+  return secureInt % BigInt(10n ** BigInt(length));
 };

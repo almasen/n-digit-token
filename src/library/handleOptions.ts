@@ -10,26 +10,26 @@ import type { Options } from './types';
  * @return {string|number|bigint} formatted token
  */
 export const handleOptions = (
-    secureBigIntToken: bigint,
-    length: number,
-    options?: Options,
+  secureBigIntToken: bigint,
+  length: number,
+  options?: Options,
 ): string | number | bigint => {
-    if (!options) {
-        return padTokenIfNecessary(length, secureBigIntToken.toString(10));
-    }
+  if (!options) {
+    return padTokenIfNecessary(length, secureBigIntToken.toString(10));
+  }
 
-    switch (options.returnType) {
-        case BIGINT:
-            return secureBigIntToken;
+  switch (options.returnType) {
+    case BIGINT:
+      return secureBigIntToken;
 
-        case NUMBER:
-        case INTEGER:
-            return Number(secureBigIntToken);
+    case NUMBER:
+    case INTEGER:
+      return Number(secureBigIntToken);
 
-        default:
-            const tokenString = secureBigIntToken.toString(10);
-            return options.skipPadding
-                ? tokenString
-                : padTokenIfNecessary(length, tokenString);
-    }
+    default:
+      const tokenString = secureBigIntToken.toString(10);
+      return options.skipPadding
+        ? tokenString
+        : padTokenIfNecessary(length, tokenString);
+  }
 };
