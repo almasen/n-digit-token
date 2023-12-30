@@ -1,5 +1,15 @@
 ## Change log
 
+## 2.2.2 - 2023-12-30
+
+### Added
+
+* Bump development dependencies
+
+### Fixed
+
+* Unsupported JS constructs for legacy node versions
+
 ## 2.2.1 - 2023-09-13
 
 ### Added

@@ -149,28 +149,6 @@ You can read more about this [here](https://nodejs.org/api/crypto.html#crypto_cr
 
 As `n-digit-token` is dependent on `crypto.randomBytes()` it uses libuv's threadpool, which can have performance implications for some applications. Please refer to the documentation [here](https://nodejs.org/api/crypto.html#crypto_crypto_randombytes_size_callback) for more information.
 
-#### Time complexity chart
-
-To test the consistency of the speed of the algorithm on a modern CPU, `n-digit-token` was called to generate a token of length `1` to `1000` on an `AMD EPYC 7000` clocked at `2.2 GHz`. This test was repeated a `1000` times on different occasions and the times were averaged.
-
-The below chart represents the time it takes (in nanoseconds) to generate a token of length `x`:
-
-<p align="center">
-  Time taken per token length
-</p>
-
-[![Time complexity](./img/time-complexity.svg)](https://raw.githubusercontent.com/almasen/n-digit-token/c3a66bbf99516da413a757433c6ed2ee9d8e76c4/img/time-complexity.svg)
-
-<p align="center">
-  <small>
-  y-axis shows time in nanoseconds / token length (AMD EPYC 7000 @ 2.2 GHz)
-  </small>
-</p>
-
-From this test and the diagram above it is shown that for up to `~100` digits the running time is constant, for larger tokens, the time taken is growing by gradually more.
-
-As this algorithm is not designed to be used as a pseudo random digit stream, but to generate fixed-size tokens, this matches expectations. That said, it would be technically feasible to generate a large number of short tokens via this module that still runs in constant time, and then concatenate the tokens to a large stream.
-
 ### Memory usage
 
 By default the algorithm ensures modulo precision whilst also balancing performance and memory usage.
@@ -404,10 +382,6 @@ const token = gen(6, { customByteStream: randomBytes });
 ```
 
 Please note that this is option has only been tested with `crypto-browserify` and inappropriate use may lead to various unintended consequences.
-
-### options.avoidModuloBias (deprecated)
-
-This setting has been deprecated as of `n-digit-token@v2.x` since the algorithm avoids modulo bias by default. Therefore, the use of this option is now unnecessary and ignored by the application.
 
 ## Test
 

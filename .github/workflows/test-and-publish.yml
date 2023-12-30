@@ -72,7 +72,7 @@ jobs:
 
       - name: Publish test coverage
         uses: easingthemes/ssh-deploy@v2.1.4
-        env:
+        with:
           SOURCE: "coverage"
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
