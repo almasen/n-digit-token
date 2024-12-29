@@ -1,5 +1,17 @@
 ## Change log
 
+## 2.2.3 - 2024-12-29
+
+> 'guess time for the annual tiny maintenance. 😅 Thanks for 40k+ downloads! ❤️❤️
+
+### Added
+
+* Bump development dependencies
+
+### Fixed
+
+* GitHub CI deprecated action version
+
 ## 2.2.2 - 2023-12-30
 
 ### Added

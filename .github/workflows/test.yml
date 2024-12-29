@@ -53,7 +53,7 @@ jobs:
         working-directory: ./
 
       - name: Create test coverage artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: ./coverage

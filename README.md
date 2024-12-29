@@ -1,6 +1,6 @@
 <h1 align="center">n-digit-token</h1>
 
-<p align="center">Generate a cryptographically secure pseudo-random token of N digits.</p>
+<p align="center">Generate a cryptographically secure pseudo-random token of N digits</p>
 
 <p align="center">
   <a href="#comparisons">
@@ -25,7 +25,7 @@
 
 ## Quick start
 
-`gen(n)` where `n` is the desired length/number of digits.
+`gen(n)` where `n` is the desired length/number of digits
 
 ``` typescript
 import { gen } from 'n-digit-token';
@@ -401,7 +401,7 @@ If you like this project, please consider supporting `n-digit-token` with a [one
 
 ### Star this project
 
-If you can't support `n-digit-token` financially, but you've found it useful, please consider giving the project a [GitHub:star:](https://github.com/almasen/n-digit-token) to help its discoverability. Thank you!
+If you've found this tool useful, please consider giving the project a [GitHub:star:](https://github.com/almasen/n-digit-token) to help its discoverability. Thank you!
 
 ### Contributing
 
