@@ -70,14 +70,14 @@ jobs:
         with:
           name: coverage
 
-      - name: Publish test coverage
-        uses: easingthemes/ssh-deploy@v2.1.4
-        with:
-          SOURCE: "coverage"
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          REMOTE_USER: ${{ secrets.SSH_USER }}
-          TARGET: ${{ secrets.COVERAGE_DIR }}
+      # - name: Publish test coverage
+      #   uses: easingthemes/ssh-deploy@v2.1.4
+      #   with:
+      #     SOURCE: "coverage"
+      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+      #     REMOTE_HOST: ${{ secrets.SSH_HOST }}
+      #     REMOTE_USER: ${{ secrets.SSH_USER }}
+      #     TARGET: ${{ secrets.COVERAGE_DIR }}
 
   publish:
     needs: test
