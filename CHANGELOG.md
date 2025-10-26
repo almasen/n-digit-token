@@ -1,5 +1,11 @@
 ## Change log
 
+## 2.2.4 - 2025-10-26
+
+### Added
+
+* Bump development dependencies
+
 ## 2.2.3 - 2024-12-29
 
 > 'guess time for the annual tiny maintenance. 😅 Thanks for 40k+ downloads! ❤️❤️
